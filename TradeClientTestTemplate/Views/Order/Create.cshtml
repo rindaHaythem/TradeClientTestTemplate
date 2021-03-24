@@ -1,0 +1,114 @@
+﻿@model TradeClientTestTemplate.Models.Order
+
+
+<div class="container-fluid m-4 px-4 py-2  clearfix border border-info border-2 rounded text-dark">
+    <div class="row">
+        <form method="post" asp-action="Create" class="needs-validation" novalidate>
+            @Html.AntiForgeryToken();
+            <div class="row pr-4 justify-content-end">
+                <a asp-action="Index" type="button" class="close pt-1"><span>×</span></a>
+            </div>
+            <div class="row">
+                <div class="col justify-content-center">
+                    <h4 class="p-3 text-primary">New Order Placement</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col  p-1">
+                    <div class="form-group">
+                        <label asp-for="Symbol">Symbol</label>
+                        <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
+                        <input type="text" asp-for="Symbol" class="form-control" placeholder="Symbol" required />
+                        <div class="invalid-feedback">
+                            Choose a valid symbol!
+                        </div>
+                    </div>
+                </div>
+                <div class="col  p-1">
+                    <div class="form-group">
+                        <label for="symbolName" class="col-form-label">Symbol Full Name</label>
+                        <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
+                        <input type="text" readonly class="form-control-plaintext" id="symbolName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col  p-1">
+                    <div class="form-group">
+                        <label asp-for="Side">Side</label>
+                        <select asp-for="Side" class="form-control" required>
+                            <option value="1" selected>BUY</option>
+                            <option value="2">SELL</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col  p-1">
+                    <div class="form-floating mb-3">
+                        <label asp-for="Quantity">Quantity</label>
+                        <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
+                        <input type="number" asp-for="Quantity" min="1" class="form-control" oninput="validity.valid||(value='');" required />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4  p-1">
+                    <div class="form-group">
+                        <label asp-for="OrderType">Order Type</label>
+                        <select asp-for="OrderType" class="form-control" required>
+                            <option value="1" selected>Market</option>
+                            <option value="2">Limit</option>
+                            <option value="3">Stop</option>
+                            <option value="4">Stop-Limit</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col  p-1">
+                    <div class="form-group">
+                        <label asp-for="stopPrice">Stop Price</label>
+                        <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
+                        <input type="text" class="form-control" asp-for="stopPrice" disabled="disabled" required />
+                    </div>
+                </div>
+                <div class="col  p-1">
+                    <div class="form-group">
+                        <label asp-for="limitPrice">Limit Price</label>
+                        <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
+                        <input type="text" class="form-control" asp-for="limitPrice" disabled="disabled" required />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-4  p-1">
+                    <label asp-for="TimeInForce">Time In Force</label>
+                    <select class="form-control" asp-for="TimeInForce">
+                        <option value="0">DAY</option>
+                        <option value="1">GTC</option>
+                        <option value="3">IOC</option>
+                        <option value="4">FOK</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4 p-1">
+                    <label asp-for="Note">Notes</label>
+                    <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
+                    <textarea class="form-control" asp-for="Note" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-outline-primary w-100" value="Create">Send Placement</button>
+                </div>
+
+                <div class="col-3">
+                    <button type="reset" class="btn btn-outline-info w-100"><i class="fas fa-sync-alt"></i> Reset</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="row">
+        @*@Html.Partial("~/Views/Shared/_OrderPreview.cshtml");*@
+    </div>
+</div>

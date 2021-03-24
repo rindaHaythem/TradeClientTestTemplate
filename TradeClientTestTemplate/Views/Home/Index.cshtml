@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-4 col-10">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <ul class="nav nav-pills nav-fill flex-column flex-sm-row" id="tabs-text" role="tablist">
+                <li class="nav-item">
+                    <a asp-controller="Order" asp-action="Index" class="nav-link mb-sm-3 mb-md-0 active btn-outline-info" data-toggle="tab" role="tab" aria-controls="tabs-text-1" aria-selected="true">Orders List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0  btn-outline-info" id="tabs-text-2-tab" data-toggle="tab" href="#tabs-text-2" role="tab" aria-controls="tabs-text-2" aria-selected="false">Summary Tickets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mb-sm-3 mb-md-0  btn-outline-info" id="tabs-text-3-tab" data-toggle="tab" href="#tabs-text-3" role="tab" aria-controls="tabs-text-3" aria-selected="false">Connect to Broker</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-2">
+            <a class="nav-link mb-sm-3 mb-md-0 text-center display-4 text-danger rounded-circle" href="#"><i class="fas fa-heartbeat"></i></a>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,86 @@
+﻿@model TradeClientTestTemplate.Models.Order
+
+@*<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ClOrdId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ClOrdId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TransactTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TransactTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Side)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Side)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Symbol)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Symbol)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.limitPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.limitPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.stopPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.stopPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeInForce)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeInForce)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.LocalId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+*@
+<h3>Order details</h3>
+<div class="container clearfix text-dark">
+    <div class="row">
+        @Html.DisplayNameFor(m => Model.Side) : @Html.DisplayFor(m => Model.Side)
+        @Html.DisplayNameFor(m => Model.Quantity) : @Html.DisplayFor(m => Model.Quantity)
+        @Html.DisplayNameFor(m => Model.Symbol) : @Html.DisplayFor(m => Model.Symbol)
+        @Html.DisplayNameFor(m => Model.TimeInForce) : @Html.DisplayFor(m => Model.TimeInForce)
+    </div>
+    <div class="row">
+        <p>Updated at @DateTime.Now</p>
+    </div>
+    
+</div>
