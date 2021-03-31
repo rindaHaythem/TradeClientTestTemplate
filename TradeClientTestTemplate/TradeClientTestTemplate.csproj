@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Abp" Version="6.3.0" />
     <PackageReference Include="bootstrap.chosen" Version="1.0.0" />
     <PackageReference Include="colResizable" Version="1.6.2" />
     <PackageReference Include="flexigrid" Version="1.1.0" />
@@ -18,6 +19,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="QuickFIXn.Core" Version="1.10.0" />
     <PackageReference Include="QuickFIXn.FIX4.2" Version="1.10.0" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

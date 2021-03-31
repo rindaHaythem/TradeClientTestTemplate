@@ -19,6 +19,37 @@ namespace TradeClientTestTemplate.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AccountTrader", b =>
+                {
+                    b.Property<string>("accountTraderstraderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("listOfAccountsaccountId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("accountTraderstraderId", "listOfAccountsaccountId");
+
+                    b.HasIndex("listOfAccountsaccountId");
+
+                    b.ToTable("AccountTrader");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.Account", b =>
+                {
+                    b.Property<string>("accountId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("accountFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("accountSymbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("accountId");
+
+                    b.ToTable("accounts");
+                });
+
             modelBuilder.Entity("TradeClientTestTemplate.Models.EquitiesSymbols", b =>
                 {
                     b.Property<int>("SymbolId")
@@ -39,7 +70,7 @@ namespace TradeClientTestTemplate.Migrations
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.Order", b =>
                 {
-                    b.Property<int>("LocalId")
+                    b.Property<int>("portfolioManagerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -68,18 +99,67 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<string>("TimeInForce")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TransactTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("filled")
+                        .HasColumnType("int");
+
+                    b.Property<int>("leaves")
+                        .HasColumnType("int");
 
                     b.Property<float>("limitPrice")
                         .HasColumnType("real");
 
+                    b.Property<int>("ordered")
+                        .HasColumnType("int");
+
+                    b.Property<int>("placed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("stopPrice")
                         .HasColumnType("real");
 
-                    b.HasKey("LocalId");
+                    b.Property<DateTime>("timeCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("uncommited")
+                        .HasColumnType("int");
+
+                    b.HasKey("portfolioManagerId");
 
                     b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.Trader", b =>
+                {
+                    b.Property<string>("traderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("traderFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("traderSymbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("traderId");
+
+                    b.ToTable("traders");
+                });
+
+            modelBuilder.Entity("AccountTrader", b =>
+                {
+                    b.HasOne("TradeClientTestTemplate.Models.Trader", null)
+                        .WithMany()
+                        .HasForeignKey("accountTraderstraderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TradeClientTestTemplate.Models.Account", null)
+                        .WithMany()
+                        .HasForeignKey("listOfAccountsaccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

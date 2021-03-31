@@ -69,3 +69,49 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
+.myDropDown {
+    height: 50px;
+    overflow: auto;
+}
+
+#importantTXT {
+    color: orangered;
+}
+
+
+.select {
+    border: 1px solid #444444;
+    height: 20px;
+    display: inline-block;
+    border-radius: 3px;
+}
+
+.option-container {
+    display: none;
+    position: absolute;
+    top: 30px;
+    border: 1px solid;
+}
+
+.option-expand {
+    float: left;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.option-selection {
+    min-height: 1px;
+    float: left;
+    padding: 0 5px;
+}
+
+.option {
+    padding: 5px;
+    background: #FFF;
+}
+
+.bckgcouleur {
+    background-color:    #ECF6F6;
+}

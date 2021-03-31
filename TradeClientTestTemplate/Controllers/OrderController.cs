@@ -16,19 +16,17 @@ namespace TradeClientTestTemplate.Controllers
         {
             _db = db;
         }
-
-        
+                
         public IActionResult Index()
         {
             IEnumerable<Order> objList = _db.Order;
-            
-            
             return View(objList);
         }
-
+        
         //GET - CREATE
         public IActionResult Create()
         {
+            ViewBag.Equities = _db.EquitiesSymbols;
             return View();
         }
 
@@ -40,12 +38,10 @@ namespace TradeClientTestTemplate.Controllers
             if (!ModelState.IsValid)
             {
                 obj.ClOrdId = Guid.NewGuid().ToString();
-                obj.TransactTime = DateTime.Now;
+                obj.timeCreated = DateTime.Now;
                 _db.Order.Add(obj);
                 _db.SaveChanges();
-
             }
-
             return RedirectToAction("Index");
         }
     }

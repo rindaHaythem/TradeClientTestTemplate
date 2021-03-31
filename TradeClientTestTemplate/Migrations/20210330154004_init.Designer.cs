@@ -10,8 +10,8 @@ using TradeClientTestTemplate.Data;
 namespace TradeClientTestTemplate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210324104416_createdNewTableSymbols")]
-    partial class createdNewTableSymbols
+    [Migration("20210330154004_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,9 +21,27 @@ namespace TradeClientTestTemplate.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("TradeClientTestTemplate.Models.EquitiesSymbols", b =>
+                {
+                    b.Property<int>("SymbolId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SymbolId");
+
+                    b.ToTable("EquitiesSymbols");
+                });
+
             modelBuilder.Entity("TradeClientTestTemplate.Models.Order", b =>
                 {
-                    b.Property<int>("LocalId")
+                    b.Property<int>("portfolioManagerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -52,16 +70,34 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<string>("TimeInForce")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TransactTime")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("filled")
+                        .HasColumnType("int");
+
+                    b.Property<int>("leaves")
+                        .HasColumnType("int");
 
                     b.Property<float>("limitPrice")
                         .HasColumnType("real");
 
+                    b.Property<int>("ordered")
+                        .HasColumnType("int");
+
+                    b.Property<int>("placed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("stopPrice")
                         .HasColumnType("real");
 
-                    b.HasKey("LocalId");
+                    b.Property<DateTime>("timeCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("uncommited")
+                        .HasColumnType("int");
+
+                    b.HasKey("portfolioManagerId");
 
                     b.ToTable("Order");
                 });

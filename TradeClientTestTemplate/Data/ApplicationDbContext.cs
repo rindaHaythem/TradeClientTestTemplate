@@ -16,5 +16,7 @@ namespace TradeClientTestTemplate.Data
 
         public DbSet<Order> Order { get; set; }
         public DbSet<EquitiesSymbols> EquitiesSymbols { get; set; }
+        public DbSet<Account> accounts { get; set; }
+        public DbSet<Trader> traders { get; set; }
     }
 }

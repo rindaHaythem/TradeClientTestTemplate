@@ -45,76 +45,25 @@
             });
         });
     
-        $(function () {
-            $('#tableTESTOR').bootstrapTable()
-        })
 
-// hidden input text
+
 /*
-var ddl = document.getElementById("OrderType");
-ddl.onchange = newOrderType;
-function newOrderType() {
-    var ddl = document.getElementById("OrderType");
-    var selectedValue = ddl.options[ddl.selectedIndex].value;
+mobiscroll.settings = {
+    theme: 'windows',
+    themeVariant: 'light'
+};
 
-
-    if (selectedValue == "3") {
-        document.getElementById("stopPrice").style.display = "block";
-    }
-    else {
-        document.getElementById("stopPrice").style.display = "none";
-    }
-}
-*/
-
-// DROPDOWN SEARCH SYMBOL
-
-/*$('.dropdown').each(function (index, dropdown) {
-
-    //Find the input search box
-    let search = $(dropdown).find('.search');
-
-    //Find every item inside the dropdown
-    let items = $(dropdown).find('.dropdown-item');
-
-    //Capture the event when user types into the search box
-    $(search).on('input', function () {
-        filter($(search).val().trim().toLowerCase())
-    });
-
-    //For every word entered by the user, check if the symbol starts with that word
-    //If it does show the symbol, else hide it
-    function filter(word) {
-        let length = items.length
-        let collection = []
-        let hidden = 0
-        for (let i = 0; i < length; i++) {
-            if (items[i].value.toString().toLowerCase().includes(word)) {
-                $(items[i]).show()
-            } else {
-                $(items[i]).hide()
-                hidden++
-            }
-        }
-
-        //If all items are hidden, show the empty view
-        if (hidden === length) {
-            $(dropdown).find('.dropdown_empty').show();
-        } else {
-            $(dropdown).find('.dropdown_empty').hide();
-        }
-    }
-
-    //If the user clicks on any item, set the title of the button as the text of the item
-    $(dropdown).find('.dropdown-menu').find('.menuItems').on('click', '.dropdown-item', function () {
-        $(dropdown).find('.dropdown-toggle').text($(this)[0].value);
-        $(dropdown).find('.dropdown-toggle').dropdown('toggle');
-    })
+mobiscroll.select('#demo-mobile', {
+    display: 'bubble'
 });
 
+mobiscroll.select('#demo-desktop', {
+    display: 'bubble',
+    touchUi: false
+});*/
 
-*/
 
 
-
-/*$('[data-toggle="tooltip"]').tooltip();*/
+$(function () {
+    $('#tableTESTOR').bootstrapTable()
+})

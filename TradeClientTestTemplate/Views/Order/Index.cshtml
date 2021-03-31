@@ -6,8 +6,8 @@
             <h4 class="display-4 text-danger">Order List</h4>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Order" asp-action="Create" class="btn btn-primary btn-lg" type="button">
-                <span class="btn-inner--text">Place new Order</span>
+            <a asp-controller="Order" asp-action="Create" class="btn btn-primary p-1 btn-lg" type="button">
+                <span class="btn-inner--text"><i class="fas fa-plus"></i> &nbsp; Create new Order</span>
             </a>
         </div>
     </div>
@@ -19,19 +19,24 @@
         <div>
             @if (Model.Count() > 0)
             {
-                <table class="table"
-                       id="tableTESTOR"
-                       data-show-columns="true"
-                       data-search="true"
+                <table 
+                        id="tableTESTOR"
+                        data-show-columns="true"
+                        data-search="true"
                        data-show-toggle="true"
-                       data-pagination="true"
+                       data-pagination="false"
                        data-show-pagination-switch="true"
-                       data-resizable="true" >
+                       data-resizable="true"
+                        data-show-multi-sort="true"
+                       data-sort-priority='[{"sortName": "timeCreated","sortOrder":"desc"},{"sortName":"Status","sortOrder":"desc"}]'
+                       data-show-refresh="true"
+                       data-key-events="true"
+                       >
                     <thead>
                         <tr>
                             <th scope="col"><i class="fas fa-cogs text-info"></i></th>
-                            <th scope="col" class="sort" data-sort="Status" data-sortable="true">Status</th>
-                            <th scope="col" class="sort" data-sort="TransactTime" data-sortable="true">Transact Time</th>
+                            <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="false">Status</th>
+                            <th scope="col" class="sort" data-field="timeCreated"  data-sort="timeCreated" data-sortable="true">Created time</th>
                             <th scope="col" class="sort" data-sort="budget" data-sortable="true">Side</th>
                             <th scope="col" class="sort" data-sort="status" data-sortable="true">Symbol</th>
                             <th scope="col" class="sort" data-sort="Quantity" data-sortable="true">Quantity</th>
@@ -39,7 +44,7 @@
                             <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
                             <th scope="col" class="sort" data-sort="OrderType" data-sortable="true">Order Type</th>
                             <th scope="col" class="sort" data-sort="TimeInForce" data-sortable="true">TimeInForce</th>
-                            @*<th scope="col" class="sort" data-sort="Notes">Notes</th>*@
+                            <th scope="col" class="sort" data-sort="Notes">Notes</th>
 
                         </tr>
                     </thead>
@@ -50,8 +55,8 @@
                         <tr>
                             <td class="text-right">
                                 <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v text-danger"></i>
+                                    <a class="btn btn-sm btn-icon-only text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                         <a class="dropdown-item" href="#">Details</a>
@@ -61,7 +66,7 @@
                                 </div>
                             </td>
                             <td></td>
-                            <td>@obj.TransactTime</td>
+                            <td>@obj.timeCreated</td>
                             <td>
                                 @if (obj.Side == 1)
                                 {
@@ -110,7 +115,7 @@
                                         break;
                                 }
                             </td>
-                            @*<td>@obj.Note</td>*@
+                            <td>@obj.Note</td>
 
                         </tr>
                         }

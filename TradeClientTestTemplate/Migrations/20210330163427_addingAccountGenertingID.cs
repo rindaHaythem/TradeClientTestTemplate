@@ -2,7 +2,7 @@
 
 namespace TradeClientTestTemplate.Migrations
 {
-    public partial class createdNewTableSymbols : Migration
+    public partial class addingAccountGenertingID : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
