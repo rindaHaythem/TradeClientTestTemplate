@@ -17,10 +17,5 @@ namespace TradeClientTestTemplate.Models
 
         public virtual ICollection<Account> listOfAccounts { get; set; }
 
-        public Trader()
-        {
-            traderId = Guid.NewGuid().ToString();
-        }
-
     }
 }

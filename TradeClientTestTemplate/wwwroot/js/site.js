@@ -67,3 +67,74 @@ mobiscroll.select('#demo-desktop', {
 $(function () {
     $('#tableTESTOR').bootstrapTable()
 })
+
+/*$(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+});*/
+
+$(document).ready(function () {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+
+    $('#dismiss, .overlay').on('click', function () {
+        // hide sidebar
+        $('#sidebar').removeClass('active');
+        // hide overlay
+        $('.overlay').removeClass('active');
+    });
+
+    $('#sidebarCollapse').on('click', function () {
+        // open sidebar
+        $('#sidebar').addClass('active');
+        // fade in the overlay
+        $('.overlay').addClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+});
+
+
+/*onload = function () {
+    var ele = document.querySelectorAll('.number-only')[0];
+    ele.onkeypress = function (e) {
+        if (isNaN(this.value + "" + String.fromCharCode(e.charCode)))
+            return false;
+    }
+    ele.onpaste = function (e) {
+        e.preventDefault();
+    }
+}*/
+
+$(function () {
+
+    $('.number-only').keyup(function (e) {
+        if (this.value != '-')
+            while (isNaN(this.value))
+                this.value = this.value.split('').reverse().join('').replace(/[\D]/i, '')
+                    .split('').reverse().join('');
+    })
+        .on("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+});
+
+$(function () {
+    $("#TimeInForce").change(function () {
+        if ($(this).val() == 6) {
+            $("#dateGTD").removeAttr("disabled");
+            $("#dateGTD").focus();
+        } else {
+            $("#dateGTD").attr("disabled", "disabled");
+        }
+    });
+});
+
+
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("dateGTD")[0].setAttribute('min', today);

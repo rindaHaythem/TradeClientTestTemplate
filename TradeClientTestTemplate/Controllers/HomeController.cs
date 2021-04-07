@@ -4,23 +4,28 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using TradeClientTestTemplate.Data;
 using TradeClientTestTemplate.Models;
 
 namespace TradeClientTestTemplate.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        /*private readonly ILogger<HomeController> _logger;*/
+        private readonly ApplicationDbContext _db;
+        public HomeController(/*ILogger<HomeController> logger */ApplicationDbContext db )
         {
-            _logger = logger;
+            _db = db;
+            /*_logger = logger;*/
         }
+       
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Order> objList = _db.Order;
+            return View(objList);
         }
 
         public IActionResult Privacy()

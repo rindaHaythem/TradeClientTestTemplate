@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<TradeClientTestTemplate.Models.Order>
 
 <div class="container p-3">
+    <div>
+        <a asp-area="Models" asp-controller="Home" asp-action="Index" class="text-info" type="button"><i class="fas fa-angle-left"></i> Go back Home</a>
+    </div>
     <div class="row pt-4">
         <div class="col-6">
             <h4 class="display-4 text-danger">Order List</h4>
         </div>
         <div class="col-6 text-right">
             <a asp-controller="Order" asp-action="Create" class="btn btn-primary p-1 btn-lg" type="button">
-                <span class="btn-inner--text"><i class="fas fa-plus"></i> &nbsp; Create new Order</span>
+                <span ><i class="fas fa-plus"></i> &nbsp; Create new Order</span>
             </a>
         </div>
     </div>
@@ -25,21 +28,23 @@
                         data-search="true"
                        data-show-toggle="true"
                        data-pagination="false"
-                       data-show-pagination-switch="true"
+                       data-show-pagination-switch="false"
                        data-resizable="true"
                         data-show-multi-sort="true"
-                       data-sort-priority='[{"sortName": "timeCreated","sortOrder":"desc"},{"sortName":"Status","sortOrder":"desc"}]'
-                       data-show-refresh="true"
-                       data-key-events="true"
+                       data-sort-priority='[{"sortName": "timeCreated","sortOrder":"desc"}]'
+                       data-show-refresh="false"
+                       data-key-events="false"
                        >
                     <thead>
                         <tr>
-                            <th scope="col"><i class="fas fa-cogs text-info"></i></th>
+
                             <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="false">Status</th>
-                            <th scope="col" class="sort" data-field="timeCreated"  data-sort="timeCreated" data-sortable="true">Created time</th>
+                            <th scope="col" class="sort" data-field="timeCreated" data-sort="timeCreated" data-sortable="true">Created time</th>
                             <th scope="col" class="sort" data-sort="budget" data-sortable="true">Side</th>
                             <th scope="col" class="sort" data-sort="status" data-sortable="true">Symbol</th>
                             <th scope="col" class="sort" data-sort="Quantity" data-sortable="true">Quantity</th>
+                            <th scope="col" class="sort" data-sort="Trader" data-sortable="true">Trader</th>
+                            <th scope="col" class="sort" data-sort="Account" data-sortable="true">Account</th>
                             <th scope="col" class="sort" data-sort="Price" data-sortable="true">Limit Price</th>
                             <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
                             <th scope="col" class="sort" data-sort="OrderType" data-sortable="true">Order Type</th>
@@ -53,32 +58,55 @@
                         @foreach (var obj in Model)
                         {
                         <tr>
-                            <td class="text-right">
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-icon-only text-dark" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                        <a class="dropdown-item" href="#">Details</a>
-                                        <a class="dropdown-item" href="#">Cancel</a>
-                                        <a class="dropdown-item" href="#">Replace</a>
-                                    </div>
-                                </div>
+
+                            <td>
+                                @switch (obj.status)
+                                {
+                                    case '0':
+                                        <span class="badge badge-success text-center">New</span>;
+                                        break;
+                                    case '1':
+                                        <span class="badge badge-warning text-center">Partially filled</span>;
+                                        break;
+                                    case '2':
+                                        <span class="badge badge-dark text-center">Filled</span>;
+                                        break;
+                                    case '4':
+                                        <span class="badge badge-danger text-center">Canceled</span>;
+                                        break;
+                                    case '5':
+                                        <span class="badge badge-info text-center">Replaced</span>;
+                                        break;
+                                    case '6':
+                                        <span class="badge badge-warning text-center">Pending Cancel</span>;
+                                        break;
+                                    case '7':
+                                        <span class="badge badge-primary text-center">Stopped</span>;
+                                        break;
+                                    case '8':
+                                        <span class="badge badge-danger text-center">Rejected</span>;
+                                        break;
+                                    case 'E':
+                                        <span class="badge badge-info text-center">Pending Replace</span>;
+                                        break;
+
+                                }
                             </td>
-                            <td></td>
                             <td>@obj.timeCreated</td>
                             <td>
                                 @if (obj.Side == 1)
                                 {
-                                    <span>BUY</span>
+                                    <span class="text-success font-weight-bold"> BUY</span>
                                 }
                                 else
                                 {
-                                    <span>SELL</span>
+                                    <span class="text-danger font-weight-bold"> SELL</span>
                                 }
                             </td>
                             <td>@obj.Symbol</td>
                             <td>@obj.Quantity</td>
+                            <td>@obj.trader</td>
+                            <td>@obj.account</td>
                             <td>@obj.limitPrice</td>
                             <td>@obj.stopPrice</td>
                             <td>
@@ -116,7 +144,7 @@
                                 }
                             </td>
                             <td>@obj.Note</td>
-
+                            
                         </tr>
                         }
                     </tbody>

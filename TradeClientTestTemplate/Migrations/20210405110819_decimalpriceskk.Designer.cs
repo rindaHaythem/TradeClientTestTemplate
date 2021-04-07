@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradeClientTestTemplate.Data;
 
 namespace TradeClientTestTemplate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210405110819_decimalpriceskk")]
+    partial class decimalpriceskk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +109,6 @@ namespace TradeClientTestTemplate.Migrations
 
                     b.Property<string>("account")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dateGTD")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("filled")
                         .HasColumnType("int");

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradeClientTestTemplate.Data;
 
 namespace TradeClientTestTemplate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210401162518_RaniiiFedditMelMigration")]
+    partial class RaniiiFedditMelMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,17 +110,14 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<string>("account")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("dateGTD")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("filled")
                         .HasColumnType("int");
 
                     b.Property<int>("leaves")
                         .HasColumnType("int");
 
-                    b.Property<string>("limitPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("limitPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ordered")
                         .HasColumnType("int");
@@ -130,8 +129,8 @@ namespace TradeClientTestTemplate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<string>("stopPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("stopPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("timeCreated")
                         .HasColumnType("datetime2");

@@ -5,27 +5,47 @@
 
 }
 
-<div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark bckgcouleur">
+<div class="container  m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark bckgcouleur">
     <form method="post" asp-action="Create" class="needs-validation p-1" novalidate>
         @Html.AntiForgeryToken()
-        <div class="row pr-4 justify-content-end">
+        <div class="row  justify-content-end">
             <a asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times-circle "></i></a>
         </div>
         <div class="row">
             <div class="col justify-content-center">
-                <h4 class="p-3 text-primary">Create new order</h4>
+                <h3 class="p-3 text-primary">Create new order</h3>
             </div>
         </div>
 
         <div class="row">
             <div class="col-4  p-1">
                 <div class="form-group ">
-                    <label id="lol">Account <small class="text-danger"> &nbsp; *Please choose an account!</small></label>
-                    <select form="lol"class="form-control"  required  >
-                        <option disabled>- Select an account -</option>
-                        <option value="">account1</option>
-                        <option value="">account2</option>
-                        <option value="">account3</option>
+                    <label asp-for="trader">Trader <small class="text-danger"> &nbsp; *Please choose a trader!</small></label>
+                    <select asp-for="trader" class="form-control" required>
+                        
+                        @foreach (var trd in ViewBag.Traders)
+                        {
+                            <option value="@trd.traderSymbol">
+                                @trd.traderFullName
+                            </option>
+                        }
+                    </select>
+                    <div class="invalid-feedback">
+                        Choose a valid symbol!
+                    </div>
+                </div>
+            </div>
+            <div class="col-4  p-1">
+                <div class="form-group ">
+                    <label asp-for="account">Account <small class="text-danger"> &nbsp; *Please choose an account!</small></label>
+                    <select asp-for="account" class="form-control" required>
+                        
+                        @foreach (var acct in ViewBag.Accounts)
+                        {
+                            <option value="@acct.accountSymbol">
+                               @acct.accountFullName
+                            </option>
+                        }
                     </select>
                     <div class="invalid-feedback">
                         Choose a valid symbol!
@@ -42,14 +62,10 @@
                         @foreach (var symbl in ViewBag.Equities)
                         {
                         <option value="@symbl.Symbol">
-                            <p> @symbl.Symbol</p>
-                            <p>&nbsp;(@symbl.FullName)</p>
+                            @symbl.Symbol &nbsp;&nbsp; (@symbl.FullName)
                         </option>
                         }
                     </select>
-                    <div class="invalid-feedback">
-                        Choose a valid symbol!
-                    </div>
                 </div>
             </div>
         </div>
@@ -59,7 +75,8 @@
                 <div class="form-group">
                     <label asp-for="Side">Action</label>
                     <select asp-for="Side" class="form-control" required>
-                        <option value="1" selected>BUY</option>
+                        <option value="">&lt;none&gt;</option>
+                        <option value="1">BUY</option>
                         <option value="2">SELL</option>
                     </select>
                 </div>
@@ -80,25 +97,25 @@
                 <div class="form-group">
                     <label asp-for="OrderType">Order Type</label>
                     <select asp-for="OrderType" class="form-control" required>
-                        <option value="1" selected>Market</option>
+                        <option value="">&lt;none&gt;</option>
+                        <option value="1">Market</option>
                         <option value="2">Limit</option>
                         <option value="3">Stop</option>
                         <option value="4">Stop-Limit</option>
+                        <option value="5">Market On Close</option>
                     </select>
                 </div>
             </div>
             <div class="col  p-1">
                 <div class="form-group">
                     <label asp-for="stopPrice">Stop Price</label>
-                    <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
-                    <input type="text" class="form-control" asp-for="stopPrice" disabled="disabled" required />
+                    <input class=" number-only form-control" type="text" asp-for="stopPrice" disabled="disabled" required />
                 </div>
             </div>
             <div class="col  p-1">
                 <div class="form-group">
                     <label asp-for="limitPrice">Limit Price</label>
-                    <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
-                    <input type="text" class="form-control" asp-for="limitPrice" disabled="disabled" required />
+                    <input class="number-only form-control" type="text" asp-for="limitPrice" disabled="disabled" required />
                 </div>
             </div>
 
@@ -107,11 +124,19 @@
             <div class="col-4  p-1">
                 <label asp-for="TimeInForce">Time In Force</label>
                 <select class="form-control" asp-for="TimeInForce">
-                    <option value="0">DAY</option>
+                    <option value="0" selected>DAY</option>
                     <option value="1">GTC</option>
+                    <option value="2">OPG</option>
                     <option value="3">IOC</option>
                     <option value="4">FOK</option>
+                    <option value="6">GTD</option>
                 </select>
+            </div>
+            <div class="col-4  p-1">
+                <div class="form-group">
+                    <label asp-for="dateGTD">Good till date</label>
+                    <input class=" form-control" type="date" asp-for="dateGTD" disabled="disabled" required />
+                </div>
             </div>
         </div>
         <div class="row">
