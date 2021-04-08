@@ -61,7 +61,6 @@ namespace TradeClientTestTemplate.Controllers
                     DecimalConverter.Convert(obj.limitPrice);
                 }
                 
-                
                 obj.status = '0';
                 obj.ordered = obj.Quantity;
                 obj.placed = 0;
@@ -90,7 +89,6 @@ namespace TradeClientTestTemplate.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Place(Order obj)
         {
-
             if (ModelState.IsValid)
             {
                 obj.TransactTime = DateTime.Now;

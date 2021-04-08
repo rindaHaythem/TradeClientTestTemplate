@@ -1,35 +1,47 @@
 ﻿@model IEnumerable<TradeClientTestTemplate.Models.Order>
 
+    
+    
 
     <div class="container p-3">
         <div class="row pt-4">
-            <div class="col-6">
-                <h4 class="text-primary">Trader Desk</h4>
+            <div class="d-inline col-4">
+                <h4 class="d-inline text-primary">Trader Desk</h4>
+                <select class="d-inline form-control " >
+
+                    @foreach (var trd in ViewBag.Traders)
+                    {
+                        <option value="@trd.traderSymbol">
+                            @trd.traderFullName
+                        </option>
+                    }
+                </select>
             </div>
-            <div class="col-6 text-right">
+            <div class="col-4 text-right">
                 <a asp-area="Models" asp-controller="Order" asp-action="Create" class="btn p-1 btn-outline-success" type="button">
                     <span class="btn-inner--text"><i class="fas fa-plus"></i> &ensp; Order form</span>
                 </a>
             </div>
         </div>
     </div>
-    
-    <div class="container">
+
+    <div class="container p-2 border-dark">
         <div class="table-responsive ">
 
             <div>
                 @if (Model.Count() > 0)
                 {
                     <table table id="tableTESTOR"
-                        data-search="true"
-                        data-show-columns="true"
-                        data-show-toggle="true"
-                        data-show-multi-sort="true"
-                        data-sort-priority='[{"sortName": "timeCreated","sortOrder":"desc"},{"sortName": "transactTime","sortOrder":"desc"}]'>
+                           data-search="true"
+                           data-show-columns="true"
+                           data-show-toggle="true"
+
+                           data-show-multi-sort="true"
+                           data-sort-priority='[{"sortName": "Status","sortOrder":"asc"},{"sortName": "timeCreated","sortOrder":"desc"},{"sortName": "transactTime","sortOrder":"asc"}]'>
                         <thead>
                             <tr>
 
-                                <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="false">Status</th>
+                                <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="true">Status</th>
                                 <th scope="col" class="sort" data-field="EquityName" data-sort="EquityName" data-sortable="true">Name</th>
                                 <th scope="col" class="sort" data-sort="account" data-sortable="true">Account</th>
                                 <th scope="col" class="sort" data-sort="budget" data-sortable="true">Side</th>
@@ -43,10 +55,9 @@
                                 <th scope="col" class="sort" data-sort="Price" data-sortable="true">Limit Price</th>
                                 <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
                                 <th scope="col" class="sort" data-sort="TimeInForce" data-sortable="true">TimeInForce</th>
-                                <th scope="col" class="sort" data-sort="Trader">Trader Name</th>
                                 <th scope="col" class="sort" data-field="timeCreated" data-sort="timeCreated" data-sortable="true">Created time</th>
                                 <th scope="col" class="sort" data-field="transactTime" data-sort="transactTime" data-sortable="true">Transact time</th>
-                                <th class="text-center text-danger"><i class="fas fa-align-center"></i></th>
+                                <th class="text-center text-danger"><strong>Action</strong></th>
 
                             </tr>
                         </thead>
@@ -61,7 +72,10 @@
                                         {
 
                                             case 'P':
-                                                <i class="fas fa-spinner fa-pulse"></i><span class="text-warning d-inline"><strong class="text-muted">Pending</strong></span>;
+                                                <span class="text-warning d-inline"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Pending</strong></span>;
+                                                break;
+                                            case 'W':
+                                                <span class="text-primary d-inline"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Working</strong></span>;
                                                 break;
                                             case '0':
                                                 <span class="badge badge-success text-center badge-pill">New</span>;
@@ -153,21 +167,20 @@
                                                 break;
                                         }
                                     </td>
-                                    <td>@obj.trader</td>
                                     <td>@obj.timeCreated</td>
                                     <td>
-                                        @if ((DateTime.Compare(obj.TransactTime, Convert.ToDateTime("01/01/0001 00:00:00"))) == 0 )
+                                        @if ((DateTime.Compare(obj.TransactTime, Convert.ToDateTime("01/01/0001 00:00:00"))) == 0)
                                         {
-                                            <span class="text-center"><i class="fas fa-times-circle text-dark"></i></span>
+                                            <span class="text-muted"><strong>Order still new</strong></span>
                                         }
-                                        else 
+                                        else
                                         {
                                             @obj.TransactTime
                                         }
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                            <button  type="button" asp-controller="Order" asp-route-Id="@obj.portfolioManagerId" asp-action="Place" disabled="@((obj.ordered == obj.placed) ? "disabled" : null)" class="btn btn-outline-success btn-sm">Place</button>
+                                            <a type="button" asp-area="Controllers" asp-controller="Order" asp-route-Id="@obj.portfolioManagerId" asp-action="Place" class="btn btn-outline-success btn-sm">Place</a>
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">

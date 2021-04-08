@@ -23,93 +23,34 @@
         })
 })()
 
-
-    $(function () {
-            $("#OrderType").change(function () {
-                if ($(this).val() == 2) {
-                    $("#limitPrice").removeAttr("disabled");
-                    $("#limitPrice").focus();
-                    $("#stopPrice").attr("disabled", "disabled");
-                } else if ($(this).val() == 3) {
-                    $("#stopPrice").removeAttr("disabled");
-                    $("#stopPrice").focus();
-                    $("#limitPrice").attr("disabled", "disabled");
-                } else if ($(this).val() == 4) {
-                    $("#limitPrice").removeAttr("disabled");
-                    $("#stopPrice").removeAttr("disabled");
-                    $("#stopPrice").focus();
-                } else {
-                    $("#limitPrice").attr("disabled", "disabled");
-                    $("#stopPrice").attr("disabled", "disabled");
-                }
-            });
-        });
-    
-
-
-/*
-mobiscroll.settings = {
-    theme: 'windows',
-    themeVariant: 'light'
-};
-
-mobiscroll.select('#demo-mobile', {
-    display: 'bubble'
+$(function () {
+    $("#OrderType").change(function () {
+        if ($(this).val() == 2) {
+            $("#limitPrice").removeAttr("disabled");
+            $("#limitPrice").focus();
+            $("#stopPrice").attr("disabled", "disabled");
+        } else if ($(this).val() == 3) {
+            $("#stopPrice").removeAttr("disabled");
+            $("#stopPrice").focus();
+            $("#limitPrice").attr("disabled", "disabled");
+        } else if ($(this).val() == 4) {
+            $("#limitPrice").removeAttr("disabled");
+            $("#stopPrice").removeAttr("disabled");
+            $("#stopPrice").focus();
+        } else {
+            $("#limitPrice").attr("disabled", "disabled");
+            $("#stopPrice").attr("disabled", "disabled");
+        }
+    });
 });
-
-mobiscroll.select('#demo-desktop', {
-    display: 'bubble',
-    touchUi: false
-});*/
-
+    
 
 
 $(function () {
     $('#tableTESTOR').bootstrapTable()
 })
 
-/*$(document).ready(function () {
-
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-    });
-
-});*/
-
-$(document).ready(function () {
-    $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-    });
-
-    $('#dismiss, .overlay').on('click', function () {
-        // hide sidebar
-        $('#sidebar').removeClass('active');
-        // hide overlay
-        $('.overlay').removeClass('active');
-    });
-
-    $('#sidebarCollapse').on('click', function () {
-        // open sidebar
-        $('#sidebar').addClass('active');
-        // fade in the overlay
-        $('.overlay').addClass('active');
-        $('.collapse.in').toggleClass('in');
-        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-    });
-});
-
-
-/*onload = function () {
-    var ele = document.querySelectorAll('.number-only')[0];
-    ele.onkeypress = function (e) {
-        if (isNaN(this.value + "" + String.fromCharCode(e.charCode)))
-            return false;
-    }
-    ele.onpaste = function (e) {
-        e.preventDefault();
-    }
-}*/
-
+/*Stop & Limit price validation*/
 $(function () {
 
     $('.number-only').keyup(function (e) {
@@ -135,6 +76,6 @@ $(function () {
     });
 });
 
-
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("dateGTD")[0].setAttribute('min', today);
+

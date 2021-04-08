@@ -20,8 +20,4 @@
     <ProjectReference Include="..\..\..\..\Desktop\QuickFIXnn\Messages\FIX42\QuickFix.FIX42.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Placement\" />
-  </ItemGroup>
-
 </Project>

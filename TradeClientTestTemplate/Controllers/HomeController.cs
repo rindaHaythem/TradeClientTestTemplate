@@ -25,6 +25,7 @@ namespace TradeClientTestTemplate.Controllers
         public IActionResult Index()
         {
             IEnumerable<Order> objList = _db.Order;
+            ViewBag.Traders = _db.traders;
             return View(objList);
         }
 
