@@ -176,3 +176,20 @@ grid-row-gap: 0px;
     }
 }
 
+
+
+.dropdown-menu a {
+    white-space: normal;
+}
+
+.dropdown-menu > li {
+    position: relative;
+}
+
+    .dropdown-menu > li > i {
+        position: absolute;
+        left: 0;
+        top: 3px;
+    }
+
+

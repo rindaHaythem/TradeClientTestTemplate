@@ -27,23 +27,31 @@ $(function () {
     $("#OrderType").change(function () {
         if ($(this).val() == 2) {
             $("#limitPrice").removeAttr("disabled");
+            $("#limitPrice").show();
             $("#limitPrice").focus();
+            $("#stopPrice").hide();
             $("#stopPrice").attr("disabled", "disabled");
         } else if ($(this).val() == 3) {
-            $("#stopPrice").removeAttr("disabled");
+        $("#stopPrice").removeAttr("disabled");
+            $("#stopPrice").show();
             $("#stopPrice").focus();
+            $("#limitPrice").hide();
             $("#limitPrice").attr("disabled", "disabled");
         } else if ($(this).val() == 4) {
             $("#limitPrice").removeAttr("disabled");
             $("#stopPrice").removeAttr("disabled");
+            $("#stopPrice").show();
+            $("#limitPrice").show();
             $("#stopPrice").focus();
         } else {
             $("#limitPrice").attr("disabled", "disabled");
             $("#stopPrice").attr("disabled", "disabled");
+            $("#stopPrice").hide();
+            $("#limitPrice").hide();
         }
     });
 });
-    
+
 
 
 $(function () {
@@ -69,9 +77,11 @@ $(function () {
     $("#TimeInForce").change(function () {
         if ($(this).val() == 6) {
             $("#dateGTD").removeAttr("disabled");
+            $("#dateGTD").show();
             $("#dateGTD").focus();
         } else {
             $("#dateGTD").attr("disabled", "disabled");
+            $("#dateGTD").hide();
         }
     });
 });
@@ -79,3 +89,15 @@ $(function () {
 var today = new Date().toISOString().split('T')[0];
 document.getElementsByName("dateGTD")[0].setAttribute('min', today);
 
+
+$('#SelectorList option[value*="n/a"]').prop('disabled', true);
+
+
+/*// Open modal in AJAX callback
+$('#manual-ajaxCreate').click(function (event) {
+    event.preventDefault();
+    this.blur(); // Manually remove focus from clicked link.
+    $.get(this.href, function (html) {
+        $(html).appendTo('body').modal();
+    });
+});*/

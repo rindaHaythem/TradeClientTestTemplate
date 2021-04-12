@@ -1,208 +1,226 @@
 ﻿@model IEnumerable<TradeClientTestTemplate.Models.Order>
 
-    
-    
 
-    <div class="container p-3">
-        <div class="row pt-4">
-            <div class="d-inline col-4">
-                <h4 class="d-inline text-primary">Trader Desk</h4>
-                <select class="d-inline form-control " >
 
+<div class="container p-3">
+    
+    <div class="row pt-4">
+        <div class="col-6">
+            <h4 class="text-primary">Trader Desk</h4>
+        </div>
+    </div>
+    <div class="row justify-content-between">
+        <div class="col-6 ">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select a trader
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @foreach (var trd in ViewBag.Traders)
                     {
-                        <option value="@trd.traderSymbol">
-                            @trd.traderFullName
-                        </option>
+                        <a class="dropdown-item text-primary" href="#">@trd.traderFullName</a>
                     }
-                </select>
+                </div>
             </div>
-            <div class="col-4 text-right">
-                <a asp-area="Models" asp-controller="Order" asp-action="Create" class="btn p-1 btn-outline-success" type="button">
+        </div>
+        <div class="col-6">
+            <a asp-area="Models" asp-controller="Order" asp-action="Create" class="btn p-1 btn-outline-success" type="button">
                     <span class="btn-inner--text"><i class="fas fa-plus"></i> &ensp; Order form</span>
                 </a>
-            </div>
         </div>
     </div>
+</div>
 
-    <div class="container p-2 border-dark">
-        <div class="table-responsive ">
+<div class="container p-2 border-dark">
+    <div class="table-responsive ">
 
-            <div>
-                @if (Model.Count() > 0)
-                {
-                    <table table id="tableTESTOR"
-                           data-search="true"
-                           data-show-columns="true"
-                           data-show-toggle="true"
+        <div>
+            @if (Model.Count() > 0)
+            {
+                <table table id="tableTESTOR"
+                       data-search="true"
+                       data-show-columns="true"
+                       data-show-toggle="true"
+                       data-show-multi-sort="true"
+                       data-sort-priority='[{"sortName": "Status","sortOrder":"asc"},{"sortName": "timeCreated","sortOrder":"desc"},{"sortName": "transactTime","sortOrder":"asc"}]'>
+                    <thead>
+                        <tr>
 
-                           data-show-multi-sort="true"
-                           data-sort-priority='[{"sortName": "Status","sortOrder":"asc"},{"sortName": "timeCreated","sortOrder":"desc"},{"sortName": "transactTime","sortOrder":"asc"}]'>
-                        <thead>
+                            <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="true">Status</th>
+                            <th scope="col" class="sort" data-field="EquityName" data-sort="EquityName" data-sortable="true">Name</th>
+                            <th scope="col" class="sort" data-sort="account" data-sortable="true">Account</th>
+                            <th scope="col" class="sort" data-sort="budget" data-sortable="true">Side</th>
+                            <th scope="col" class="sort" data-sort="Symbol" data-sortable="true">Symbol</th>
+                            <th scope="col" class="sort" data-sort="Ordered" data-sortable="true">Ordered</th>
+                            <th scope="col" class="sort" data-sort="Uncommitted" data-sortable="true">Uncommitted</th>
+                            <th scope="col" class="sort" data-sort="Placed" data-sortable="true">Placed</th>
+                            <th scope="col" class="sort" data-sort="Filled" data-sortable="true">Filled</th>
+                            <th scope="col" class="sort" data-sort="Leaves" data-sortable="true">Leaves</th>
+                            <th scope="col" class="sort" data-sort="OrderType" data-sortable="true">Order Type</th>
+                            <th scope="col" class="sort" data-sort="Price" data-sortable="true">Limit Price</th>
+                            <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
+                            <th scope="col" class="sort" data-sort="TimeInForce" data-sortable="true">TimeInForce</th>
+                            <th scope="col" class="sort" data-field="timeCreated" data-sort="timeCreated" data-sortable="true">Created time</th>
+                            <th scope="col" class="sort" data-field="transactTime" data-sort="transactTime" data-sortable="true">Transact time</th>
+                            <th class="text-center text-danger"><strong>Action</strong></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody class="list">
+                        @foreach (var obj in Model)
+                        {
                             <tr>
 
-                                <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="true">Status</th>
-                                <th scope="col" class="sort" data-field="EquityName" data-sort="EquityName" data-sortable="true">Name</th>
-                                <th scope="col" class="sort" data-sort="account" data-sortable="true">Account</th>
-                                <th scope="col" class="sort" data-sort="budget" data-sortable="true">Side</th>
-                                <th scope="col" class="sort" data-sort="Symbol" data-sortable="true">Symbol</th>
-                                <th scope="col" class="sort" data-sort="Ordered" data-sortable="true">Ordered</th>
-                                <th scope="col" class="sort" data-sort="Uncommitted" data-sortable="true">Uncommitted</th>
-                                <th scope="col" class="sort" data-sort="Placed" data-sortable="true">Placed</th>
-                                <th scope="col" class="sort" data-sort="Filled" data-sortable="true">Filled</th>
-                                <th scope="col" class="sort" data-sort="Leaves" data-sortable="true">Leaves</th>
-                                <th scope="col" class="sort" data-sort="OrderType" data-sortable="true">Order Type</th>
-                                <th scope="col" class="sort" data-sort="Price" data-sortable="true">Limit Price</th>
-                                <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
-                                <th scope="col" class="sort" data-sort="TimeInForce" data-sortable="true">TimeInForce</th>
-                                <th scope="col" class="sort" data-field="timeCreated" data-sort="timeCreated" data-sortable="true">Created time</th>
-                                <th scope="col" class="sort" data-field="transactTime" data-sort="transactTime" data-sortable="true">Transact time</th>
-                                <th class="text-center text-danger"><strong>Action</strong></th>
+                                <td>
+                                    @switch (obj.status)
+                                    {
 
-                            </tr>
-                        </thead>
+                                        case 'P':
+                                            <span class="text-warning text-center"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Pending</strong></span>;
+                                            break;
+                                        case 'W':
+                                            <span class="text-primary text-center"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Working</strong></span>;
+                                            break;
+                                        case '0':
+                                            <span class="badge badge-success text-center badge-pill">New</span>;
+                                            break;
+                                        case '1':
+                                            <span class="badge badge-warning text-center badge-pill">Partially filled</span>;
+                                            break;
+                                        case '2':
+                                            <span class="badge badge-dark text-center badge-pill">Filled</span>;
+                                            break;
+                                        case '4':
+                                            <span class="badge badge-danger text-center badge-pill">Canceled</span>;
+                                            break;
+                                        case '5':
+                                            <span class="badge badge-info text-center badge-pill">Replaced</span>;
+                                            break;
+                                        case '6':
+                                            <span class="badge badge-warning text-center badge-pill">Pending Cancel</span>;
+                                            break;
+                                        case '7':
+                                            <span class="badge badge-primary text-center badge-pill">Stopped</span>;
+                                            break;
+                                        case '8':
+                                            <span class="badge badge-danger text-center badge-pill">Rejected</span>;
+                                            break;
+                                        case 'E':
+                                            <span class="badge badge-info text-center badge-pill">Pending Replace</span>;
+                                            break;
 
-                        <tbody class="list">
-                            @foreach (var obj in Model)
-                            {
-                                <tr>
-
-                                    <td>
-                                        @switch (obj.status)
+                                    }
+                                </td>
+                                <td>@obj.EquityFullName</td>
+                                <td>@obj.account</td>
+                                <td>
+                                    @if (obj.Side == 1)
+                                    {
+                                        <span class="text-success font-weight-bold"> BUY</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger font-weight-bold"> SELL</span>
+                                    }
+                                </td>
+                                <td>@obj.Symbol</td>
+                                <td>@obj.ordered</td>
+                                <td>@obj.uncommited</td>
+                                <td>@obj.placed</td>
+                                <td>@obj.filled</td>
+                                <td>@obj.leaves</td>
+                                <td>
+                                    @switch (int.Parse(obj.OrderType.ToString()))
+                                    {
+                                        case 1:
+                                            <span>Market</span>;
+                                            break;
+                                        case 2:
+                                            <span>Limit</span>;
+                                            break;
+                                        case 3:
+                                            <span>Stop</span>;
+                                            break;
+                                        case 4:
+                                            <span>Stop-Limit</span>;
+                                            break;
+                                        case 5:
+                                            <span>Market On Close</span>;
+                                            break;
+                                    }
+                                </td>
+                                <td>@obj.limitPrice</td>
+                                <td>@obj.stopPrice</td>
+                                <td>
+                                    @switch (int.Parse(obj.TimeInForce.ToString()))
+                                    {
+                                        case 0:
+                                            <span>Day</span>;
+                                            break;
+                                        case 1:
+                                            <span>Good Till Cancel <small class="text-muted">(GTC)</small></span>;
+                                            break;
+                                        case 3:
+                                            <span>Immediate Or Cancel <small class="text-muted">(IOC)</small></span>;
+                                            break;
+                                        case 4:
+                                            <span>Fill Or Kill <small class="text-muted">(FOK)</small></span>;
+                                            break;
+                                        case 6:
+                                            <span>Good Till Day <small class="text-muted">(GTD)</small></span>;
+                                            break;
+                                    }
+                                </td>
+                                <td>@obj.timeCreated</td>
+                                <td>
+                                    @if ((DateTime.Compare(obj.TransactTime, Convert.ToDateTime("01/01/0001 00:00:00"))) == 0)
+                                    {
+                                        <span class="text-muted"><strong>Order still new</strong></span>
+                                    }
+                                    else
+                                    {
+                                        @obj.TransactTime
+                                    }
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                        @if (obj.ordered != obj.placed)
                                         {
-
-                                            case 'P':
-                                                <span class="text-warning d-inline"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Pending</strong></span>;
-                                                break;
-                                            case 'W':
-                                                <span class="text-primary d-inline"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Working</strong></span>;
-                                                break;
-                                            case '0':
-                                                <span class="badge badge-success text-center badge-pill">New</span>;
-                                                break;
-                                            case '1':
-                                                <span class="badge badge-warning text-center badge-pill">Partially filled</span>;
-                                                break;
-                                            case '2':
-                                                <span class="badge badge-dark text-center badge-pill">Filled</span>;
-                                                break;
-                                            case '4':
-                                                <span class="badge badge-danger text-center badge-pill">Canceled</span>;
-                                                break;
-                                            case '5':
-                                                <span class="badge badge-info text-center badge-pill">Replaced</span>;
-                                                break;
-                                            case '6':
-                                                <span class="badge badge-warning text-center badge-pill">Pending Cancel</span>;
-                                                break;
-                                            case '7':
-                                                <span class="badge badge-primary text-center badge-pill">Stopped</span>;
-                                                break;
-                                            case '8':
-                                                <span class="badge badge-danger text-center badge-pill">Rejected</span>;
-                                                break;
-                                            case 'E':
-                                                <span class="badge badge-info text-center badge-pill">Pending Replace</span>;
-                                                break;
-
+                                            <a type="button" asp-area="Controllers" asp-controller="Order"
+                                               asp-route-Id="@obj.portfolioManagerId" asp-action="Place"
+                                               class="btn btn-outline-success btn-sm">
+                                                Place
+                                            </a>
                                         }
-                                    </td>
-                                    <td>@obj.EquityFullName</td>
-                                    <td>@obj.account</td>
-                                    <td>
-                                        @if (obj.Side == 1)
+                                        @if (obj.ordered != obj.uncommited)
                                         {
-                                            <span class="text-success font-weight-bold"> BUY</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-danger font-weight-bold"> SELL</span>
-                                        }
-                                    </td>
-                                    <td>@obj.Symbol</td>
-                                    <td>@obj.ordered</td>
-                                    <td>@obj.uncommited</td>
-                                    <td>@obj.placed</td>
-                                    <td>@obj.filled</td>
-                                    <td>@obj.leaves</td>
-                                    <td>
-                                        @switch (int.Parse(obj.OrderType.ToString()))
-                                        {
-                                            case 1:
-                                                <span>Market</span>;
-                                                break;
-                                            case 2:
-                                                <span>Limit</span>;
-                                                break;
-                                            case 3:
-                                                <span>Stop</span>;
-                                                break;
-                                            case 4:
-                                                <span>Stop-Limit</span>;
-                                                break;
-                                            case 5:
-                                                <span>Market On Close</span>;
-                                                break;
-                                        }
-                                    </td>
-                                    <td>@obj.limitPrice</td>
-                                    <td>@obj.stopPrice</td>
-                                    <td>
-                                        @switch (int.Parse(obj.TimeInForce.ToString()))
-                                        {
-                                            case 0:
-                                                <span>Day</span>;
-                                                break;
-                                            case 1:
-                                                <span>Good Till Cancel <small class="text-muted">(GTC)</small></span>;
-                                                break;
-                                            case 3:
-                                                <span>Immediate Or Cancel <small class="text-muted">(IOC)</small></span>;
-                                                break;
-                                            case 4:
-                                                <span>Fill Or Kill <small class="text-muted">(FOK)</small></span>;
-                                                break;
-                                            case 6:
-                                                <span>Good Till Day <small class="text-muted">(GTD)</small></span>;
-                                                break;
-                                        }
-                                    </td>
-                                    <td>@obj.timeCreated</td>
-                                    <td>
-                                        @if ((DateTime.Compare(obj.TransactTime, Convert.ToDateTime("01/01/0001 00:00:00"))) == 0)
-                                        {
-                                            <span class="text-muted"><strong>Order still new</strong></span>
-                                        }
-                                        else
-                                        {
-                                            @obj.TransactTime
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                            <a type="button" asp-area="Controllers" asp-controller="Order" asp-route-Id="@obj.portfolioManagerId" asp-action="Place" class="btn btn-outline-success btn-sm">Place</a>
                                             <div class="btn-group" role="group">
                                                 <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                    <a class="dropdown-item" href="#">Cancel</a>
-                                                    <a class="dropdown-item" href="#">Replace</a>
+                                                <div class="dropdown-menu justify-content-between" aria-labelledby="btnGroupDrop1">
+                                                    <a class="dropdown-item text-danger" href="#"><i class="fas fa-minus "></i>&nbsp; Cancel</a>
+                                                    <a class="dropdown-item text-primary" href="#"><i class="fas fa-exchange-alt"></i>&nbsp; Replace</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
 
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
+                                    </div>
 
-                else
-                {
-                    <h1 class="display-2 text-center"> No Order Exists.</h1>
-                }
-            </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
 
+            else
+            {
+                <h1 class="display-2 text-center"> No Order Exists.</h1>
+            }
         </div>
 
     </div>
+
+</div>
+
+

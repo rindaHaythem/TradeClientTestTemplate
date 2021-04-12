@@ -7,6 +7,7 @@
 
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <title>@ViewData["Title"] - TradeClient ShortView</title>
+
     <!--STYLES-->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/fontawesome/css/all.css" />
@@ -14,10 +15,9 @@
     <link href="~/fstdropdown/fstdropdown.css" rel="stylesheet" />
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
-    <link rel="stylesheet" href="extensions/fixed-columns/bootstrap-table-fixed-columns.css">
-    <link href="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.css" rel="stylesheet">
-
+    
+    <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="~/css/site.css" />
 
 </head>
@@ -36,7 +36,7 @@
                             <a class="nav-link pl-3" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" asp-area="Models" asp-controller="Order" asp-action="Index">Order</a>
+                            <a class="nav-link" asp-area="Models" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +52,8 @@
             @RenderBody()
         </main>
     </div>
-
+     <!-- Remember to include jQuery :) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <!-------------------S C R I P T S------------------------>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -61,28 +62,18 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+   
 
-    <!---->
-    <script src="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/resizable/bootstrap-table-resizable.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <!-- Latest compiled and minified Locales -->
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/locale/bootstrap-table-zh-CN.min.js"></script>
-
-    <!--------------------------------------------------->
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/multiple-sort/bootstrap-table-multiple-sort.js"></script>
-    <script src="extensions/treegrid/bootstrap-table-treegrid.js"></script>
 
+    <!-- jQuery Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
     <!--------------------------------------------------->
-    <!--Fixed cols-->
-    <script src="extensions/fixed-columns/bootstrap-table-fixed-columns.js"></script>
     <!--Symbols search-->
     <script src="~/fstdropdown/fstdropdown.js"></script>
-
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

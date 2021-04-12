@@ -31,7 +31,8 @@ namespace TradeClientTestTemplate.Controllers
             ViewBag.Equities = _db.EquitiesSymbols;
             ViewBag.Accounts = _db.accounts;
             ViewBag.Traders = _db.traders;
-            return View();
+            return View();/*
+            return PartialView("_CreateModalPartial");*/
         }
 
         //POST - CREATE

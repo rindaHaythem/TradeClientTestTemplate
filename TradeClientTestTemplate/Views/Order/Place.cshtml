@@ -4,7 +4,7 @@
     ViewBag.Title = "Place";
 
 }
-<div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark bckgcouleur">
+<div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark">
     <div class="row  justify-content-end">
         <a asp-area="Models" asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times-circle "></i></a>
     </div>
@@ -34,43 +34,56 @@
 
                 @if (Model.Side == 1)
                 {
-                    <span class="badge badge-success">BUY</span>
+                    <h5 class="badge badge-success">BUY</h5>
                 }
                 else
                 {
-                    <span class="badge badge-danger">SELL</span>
+                    <h5 class="badge badge-danger">SELL</h5>
                 }
 
             </div>
             <div class="p-1">
-                <label asp-for="Symbol"><strong>@Model.Symbol</strong></label>
+                <h4 asp-for="Symbol"><strong>@Model.Symbol</strong></h4>
             </div>
             <div class="p-1">
-                <label asp-for="EquityFullName">-&nbsp;@Model.EquityFullName</label>
+                <h4 asp-for="EquityFullName">-&nbsp;@Model.EquityFullName</h4>
             </div>
         </div>
         <div class="row justify-content-between">
             <div class="col-4  p-1">
                 <div class="form-floating mb-3">
-                    <label asp-for="Quantity">Quantity</label>
+                    <label asp-for="Quantity"><strong>Quantity</strong></label>
                     <input type="number" asp-for="Quantity" min="1" max="@Model.uncommited" class="form-control" oninput="validity.valid||(value='');" required value="@Model.uncommited" />
                 </div>
             </div>
-            <div class="col-7 p-1">
+            <div class="col-7 p-1 justify-content-end">
                 <div class="form-group ">
-                    <label id="broker" class="text-info"><i class="fas fa-landmark"></i><strong>&nbsp;CASH</strong><small class="text-danger"> &nbsp; *Please choose a destination!</small></label>
-                    <select for="broker" class="form-control" required>
-                        <option>B1</option>
-                        <option>B2</option>
-                        <option>B3</option>
+                    <label class="text-info"><i class="fas fa-landmark"></i><strong>&nbsp;CASH</strong><small class="text-danger"> &nbsp; *Please choose a destination!</small></label>
+                    <select id="SelectorList" class="form-control" required>
+                        <option value="n/a">JP Morgan Chase (JPM)</option>
+                        <option value="o/k">Goldman Sachs (GS)</option>
+                        <option value="o/k">Morgan Stanley (MS)</option>
+                        <option value="n/a">Bank of America Corporation (BAC)</option>
                     </select>
+
                 </div>
+                @*<div class="btn-group">
+                    <button type="button" class="btn btn-info form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select destination<b class="caret"></b>
+                    </button>
+                    <ul class="dropdown-menu ">
+                        <li class="dropdown-item text-primary" ><i class="fas fa-unlink text-danger"></i><a>&nbsp;JP Morgan Chase&nbsp;</a><strong class="text-muted">(JPM)</strong></li>
+                        <li class="dropdown-item text-primary" value="0" ><i class="fas fa-unlink text-danger"></i><a>&nbsp;Goldman Sachs&nbsp;</a><strong class="text-muted">(GS)</strong></li>
+                        <li class="dropdown-item text-primary" value><i class="fas fa-link text-success"></i><a>&nbsp;Morgan Stanley&nbsp;</a><strong class="text-muted">(MS)</strong></li>
+                        <li class="dropdown-item text-primary" ><i class="fas fa-unlink text-danger"></i><a>&nbsp;Bank of America Corporation&nbsp;</a><strong class="text-muted">(BAC)</strong></li>
+                    </ul>
+                </div>*@
             </div>
         </div>
         <div class="row justify-content-between">
             <div class="col-6  p-1">
                 <div class="form-group">
-                    <label asp-for="OrderType">Order Type</label>
+                    <label asp-for="OrderType"><strong>Order Type</strong></label>
                     <select asp-for="OrderType" class="form-control" required>
                         <option value="1" selected>Market</option>
                         <option value="2">Limit</option>
@@ -90,14 +103,14 @@
         <div class="row justify-content-between">
             <div class="col-3  p-1">
                 <div class="form-group">
-                    <label asp-for="stopPrice">Stop Price</label>
-                    <input type="text" class="number-only form-control" asp-for="stopPrice" disabled="disabled" required />
+                    <label asp-for="stopPrice"><strong>Stop Price</strong></label>
+                    <input type="text" class="number-only form-control" asp-for="stopPrice" onfocus="this.value='';" disabled="disabled" required />
                 </div>
             </div>
             <div class="col-3  p-1">
                 <div class="form-group">
-                    <label asp-for="limitPrice">Limit Price</label>
-                    <input type="text" class="number-only form-control" asp-for="limitPrice" disabled="disabled" required />
+                    <label asp-for="limitPrice"><strong>Limit Price</strong></label>
+                    <input type="text" class="number-only form-control" asp-for="limitPrice" onfocus="this.value='';" disabled="disabled" required />
                 </div>
             </div>
 
@@ -108,7 +121,7 @@
         </div>
         <div class="row">
             <div class="col-3  p-1">
-                <label asp-for="TimeInForce">Time In Force</label>
+                <label asp-for="TimeInForce"><strong>Time In Force</strong></label>
                 <select class="form-control" asp-for="TimeInForce">
                     <option value="0" selected>DAY</option>
                     <option value="1">GTC</option>
@@ -120,14 +133,14 @@
             </div>
             <div class="col-5 ">
                 <div class="form-group">
-                    <label asp-for="dateGTD">Good till date</label>
+                    <label asp-for="dateGTD"><strong>Good till date</strong></label>
                     <input class=" form-control" type="date" asp-for="dateGTD" disabled="disabled" required />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-6 p-1">
-                <label asp-for="Note">Notes</label>
+                <label asp-for="Note"><strong>Notes</strong></label>
                 <textarea class="form-control" asp-for="Note" rows="2"></textarea>
             </div>
         </div>
@@ -143,3 +156,36 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+<script >
+    $(function () {
+        $("#OrderType").select(function () {
+            if ($(this).val() == 2) {
+                $("#limitPrice").focus();
+                $("#limitPrice").removeAttr("disabled");
+                $("#limitPrice").show();
+                $("#stopPrice").hide();
+                $("#stopPrice").attr("disabled", "disabled");
+            } else if ($(this).val() == 3) {
+                $("#stopPrice").focus();
+                $("#stopPrice").removeAttr("disabled");
+                $("#stopPrice").show();
+                $("#limitPrice").hide();
+                $("#limitPrice").attr("disabled", "disabled");
+            } else if ($(this).val() == 4) {
+
+                $("#stopPrice").focus();
+                $("#limitPrice").removeAttr("disabled");
+                $("#stopPrice").removeAttr("disabled");
+                $("#stopPrice").show();
+                $("#limitPrice").show();
+            } else {
+                $("#limitPrice").attr("disabled", "disabled");
+                $("#stopPrice").attr("disabled", "disabled");
+                $("#stopPrice").hide();
+                $("#limitPrice").hide();
+            }
+        });
+    });
+</script>
