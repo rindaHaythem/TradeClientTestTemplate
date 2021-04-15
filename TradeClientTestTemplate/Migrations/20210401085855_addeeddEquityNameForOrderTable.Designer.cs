@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradeClientTestTemplate.Data;
 
 namespace TradeClientTestTemplate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210401085855_addeeddEquityNameForOrderTable")]
+    partial class addeeddEquityNameForOrderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,14 +104,8 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<string>("TimeInForce")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("TransactTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("account")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("dateGTD")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("filled")
                         .HasColumnType("int");
@@ -117,8 +113,8 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<int>("leaves")
                         .HasColumnType("int");
 
-                    b.Property<string>("limitPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<float>("limitPrice")
+                        .HasColumnType("real");
 
                     b.Property<int>("ordered")
                         .HasColumnType("int");
@@ -130,8 +126,8 @@ namespace TradeClientTestTemplate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<string>("stopPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<float>("stopPrice")
+                        .HasColumnType("real");
 
                     b.Property<DateTime>("timeCreated")
                         .HasColumnType("datetime2");

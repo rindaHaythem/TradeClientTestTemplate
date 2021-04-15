@@ -10,16 +10,15 @@ namespace TradeClientTestTemplate.Models
     public class Order
     {
         [Key]
-        public int LocalId { get; set; }
+        public int portfolioManagerId { get; set; }
 
         [Required]
-
         public string ClOrdId { get; set; }
 
         [Required]
-        [Display(Name = "Transact Time")]
+        [Display(Name = "Creation Time")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime TransactTime { get; set; }
+        public DateTime timeCreated { get; set; }
 
         [Required]
         public int Side { get; set; }
@@ -30,12 +29,11 @@ namespace TradeClientTestTemplate.Models
         public int Quantity { get; set; }
 
         [DisplayName("Limit Price")]
-        [DataType(DataType.Currency)]
-        public float limitPrice { get; set; }
+        public string limitPrice { get; set; }
+
 
         [DisplayName("Stop Price")]
-        [DataType(DataType.Currency)]
-        public float stopPrice { get; set; }
+        public string stopPrice { get; set; }
 
         [Required]
         [DisplayName("Order Type")]
@@ -46,6 +44,26 @@ namespace TradeClientTestTemplate.Models
 
         [DataType(DataType.Text)]
         public string Note { get; set; }
+
+        public char status { get; set; }
+
+        public int ordered { get; set; }
+        public int uncommited { get; set; }
+        public int placed { get; set; }
+        public int filled { get; set; }
+        public int leaves { get; set; }
+
+        public string account { get; set; }
+        public string trader { get; set; }
+
+        public string EquityFullName { get; set; }
+
+        [Display(Name = "Transact Time")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime  TransactTime { get; set; }
+
+        public DateTime dateGTD { get; set; }
+
 
     }
 }

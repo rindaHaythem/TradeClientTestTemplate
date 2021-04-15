@@ -23,98 +23,81 @@
         })
 })()
 
-
-    $(function () {
-            $("#OrderType").change(function () {
-                if ($(this).val() == 2) {
-                    $("#limitPrice").removeAttr("disabled");
-                    $("#limitPrice").focus();
-                    $("#stopPrice").attr("disabled", "disabled");
-                } else if ($(this).val() == 3) {
-                    $("#stopPrice").removeAttr("disabled");
-                    $("#stopPrice").focus();
-                    $("#limitPrice").attr("disabled", "disabled");
-                } else if ($(this).val() == 4) {
-                    $("#limitPrice").removeAttr("disabled");
-                    $("#stopPrice").removeAttr("disabled");
-                    $("#stopPrice").focus();
-                } else {
-                    $("#limitPrice").attr("disabled", "disabled");
-                    $("#stopPrice").attr("disabled", "disabled");
-                }
-            });
-        });
-    
-        $(function () {
-            $('#tableTESTOR').bootstrapTable()
-        })
-
-// hidden input text
-/*
-var ddl = document.getElementById("OrderType");
-ddl.onchange = newOrderType;
-function newOrderType() {
-    var ddl = document.getElementById("OrderType");
-    var selectedValue = ddl.options[ddl.selectedIndex].value;
-
-
-    if (selectedValue == "3") {
-        document.getElementById("stopPrice").style.display = "block";
-    }
-    else {
-        document.getElementById("stopPrice").style.display = "none";
-    }
-}
-*/
-
-// DROPDOWN SEARCH SYMBOL
-
-/*$('.dropdown').each(function (index, dropdown) {
-
-    //Find the input search box
-    let search = $(dropdown).find('.search');
-
-    //Find every item inside the dropdown
-    let items = $(dropdown).find('.dropdown-item');
-
-    //Capture the event when user types into the search box
-    $(search).on('input', function () {
-        filter($(search).val().trim().toLowerCase())
-    });
-
-    //For every word entered by the user, check if the symbol starts with that word
-    //If it does show the symbol, else hide it
-    function filter(word) {
-        let length = items.length
-        let collection = []
-        let hidden = 0
-        for (let i = 0; i < length; i++) {
-            if (items[i].value.toString().toLowerCase().includes(word)) {
-                $(items[i]).show()
-            } else {
-                $(items[i]).hide()
-                hidden++
-            }
-        }
-
-        //If all items are hidden, show the empty view
-        if (hidden === length) {
-            $(dropdown).find('.dropdown_empty').show();
+$(function () {
+    $("#OrderType").change(function () {
+        if ($(this).val() == 2) {
+            $("#limitPrice").removeAttr("disabled");
+            $("#limitPrice").show();
+            $("#limitPrice").focus();
+            $("#stopPrice").hide();
+            $("#stopPrice").attr("disabled", "disabled");
+        } else if ($(this).val() == 3) {
+        $("#stopPrice").removeAttr("disabled");
+            $("#stopPrice").show();
+            $("#stopPrice").focus();
+            $("#limitPrice").hide();
+            $("#limitPrice").attr("disabled", "disabled");
+        } else if ($(this).val() == 4) {
+            $("#limitPrice").removeAttr("disabled");
+            $("#stopPrice").removeAttr("disabled");
+            $("#stopPrice").show();
+            $("#limitPrice").show();
+            $("#stopPrice").focus();
         } else {
-            $(dropdown).find('.dropdown_empty').hide();
+            $("#limitPrice").attr("disabled", "disabled");
+            $("#stopPrice").attr("disabled", "disabled");
+            $("#stopPrice").hide();
+            $("#limitPrice").hide();
         }
-    }
-
-    //If the user clicks on any item, set the title of the button as the text of the item
-    $(dropdown).find('.dropdown-menu').find('.menuItems').on('click', '.dropdown-item', function () {
-        $(dropdown).find('.dropdown-toggle').text($(this)[0].value);
-        $(dropdown).find('.dropdown-toggle').dropdown('toggle');
-    })
+    });
 });
 
 
-*/
+
+$(function () {
+    $('#tableTESTOR').bootstrapTable()
+})
+
+/*Stop & Limit price validation*/
+$(function () {
+
+    $('.number-only').keyup(function (e) {
+        if (this.value != '-')
+            while (isNaN(this.value))
+                this.value = this.value.split('').reverse().join('').replace(/[\D]/i, '')
+                    .split('').reverse().join('');
+    })
+        .on("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+});
+
+$(function () {
+    $("#TimeInForce").change(function () {
+        if ($(this).val() == 6) {
+            $("#dateGTD").removeAttr("disabled");
+            $("#dateGTD").show();
+            $("#dateGTD").focus();
+        } else {
+            $("#dateGTD").attr("disabled", "disabled");
+            $("#dateGTD").hide();
+        }
+    });
+});
+
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName("dateGTD")[0].setAttribute('min', today);
 
 
+$('#SelectorList option[value*="n/a"]').prop('disabled', true);
 
-/*$('[data-toggle="tooltip"]').tooltip();*/
+
+/*// Open modal in AJAX callback
+$('#manual-ajaxCreate').click(function (event) {
+    event.preventDefault();
+    this.blur(); // Manually remove focus from clicked link.
+    $.get(this.href, function (html) {
+        $(html).appendTo('body').modal();
+    });
+});*/
