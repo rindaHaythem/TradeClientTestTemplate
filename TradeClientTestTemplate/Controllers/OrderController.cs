@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TradeClientTestTemplate.Data;
 using TradeClientTestTemplate.Models;
 using QuickFix.Fields.Converters;
-using Abp.Extensions;
 
 namespace TradeClientTestTemplate.Controllers
 {

@@ -9,6 +9,7 @@ namespace TradeClientTestTemplate.Models
 {
     public class Account
     {
+
         [Key]
         [Display(Name = "Account ID")]
         public string accountId { get; set; }
@@ -17,6 +18,8 @@ namespace TradeClientTestTemplate.Models
 
         public string accountFullName { get; set; }
 
-        public virtual ICollection<Trader> listOfTraders { get; set; }
+        //public virtual ICollection<Trader> listOfTraders { get; set; }
+
+        public IList<TraderAccount> TraderAccounts { get; set; }
     }
 }

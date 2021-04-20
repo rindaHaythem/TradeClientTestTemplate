@@ -5,15 +5,15 @@
 
 }
 
-<div class="container  m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark bckgcouleur">
+<div class="container  m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark ">
     <form method="post" asp-action="Create" class="needs-validation p-1" novalidate>
         @Html.AntiForgeryToken()
         <div class="row  justify-content-end">
-            <a asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times-circle "></i></a>
+            <a asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times"></i></a>
         </div>
         <div class="row">
             <div class="col justify-content-center">
-                <h3 class="p-3 text-primary">Create new order</h3>
+                <h2 class="p-3 text-dark"><strong>Create new order</strong></h2>
             </div>
         </div>
 
@@ -22,7 +22,7 @@
                 <div class="form-group ">
                     <label asp-for="trader">Trader <small class="text-danger"> &nbsp; *Please choose a trader!</small></label>
                     <select asp-for="trader" class="form-control" required>
-                        
+
                         @foreach (var trd in ViewBag.Traders)
                         {
                             <option value="@trd.traderSymbol">
@@ -39,11 +39,11 @@
                 <div class="form-group ">
                     <label asp-for="account">Account <small class="text-danger"> &nbsp; *Please choose an account!</small></label>
                     <select asp-for="account" class="form-control" required>
-                        
+
                         @foreach (var acct in ViewBag.Accounts)
                         {
                             <option value="@acct.accountSymbol">
-                               @acct.accountFullName
+                                @acct.accountFullName
                             </option>
                         }
                     </select>
@@ -61,9 +61,9 @@
                     <select asp-for="Symbol" required class="form-control fstdropdown-select" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                         @foreach (var symbl in ViewBag.Equities)
                         {
-                        <option value="@symbl.Symbol">
-                            @symbl.Symbol &nbsp;&nbsp; (@symbl.FullName)
-                        </option>
+                            <option value="@symbl.Symbol">
+                                @symbl.Symbol &nbsp; &nbsp; (@symbl.FullName)
+                            </option>
                         }
                     </select>
                 </div>
@@ -75,7 +75,7 @@
                 <div class="form-group">
                     <label asp-for="Side">Action</label>
                     <select asp-for="Side" class="form-control" required>
-                        
+
                         <option value="1" selected>BUY</option>
                         <option value="2">SELL</option>
                     </select>
@@ -87,7 +87,7 @@
                 <div class="form-floating mb-3">
                     <label asp-for="Quantity">Quantity</label>
                     <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
-                    <input type="number" asp-for="Quantity"  min="1" class="form-control" oninput="validity.valid||(value='');" required />
+                    <input type="number" asp-for="Quantity" min="1" class="form-control" oninput="validity.valid||(value='');" required />
                 </div>
             </div>
         </div>
@@ -97,8 +97,7 @@
                 <div class="form-group">
                     <label asp-for="OrderType">Order Type</label>
                     <select asp-for="OrderType" class="form-control" required>
-                        <option value="">&lt;none&gt;</option>
-                        <option value="1">Market</option>
+                        <option value="1" selected>Market</option>
                         <option value="2">Limit</option>
                         <option value="3">Stop</option>
                         <option value="4">Stop-Limit</option>
@@ -155,5 +154,6 @@
                 <button type="reset" class="btn btn-outline-info w-100"><i class="fas fa-sync-alt"></i> Reset</button>
             </div>
         </div>
+
     </form>
 </div>

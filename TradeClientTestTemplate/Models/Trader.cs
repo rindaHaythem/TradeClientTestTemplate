@@ -15,7 +15,8 @@ namespace TradeClientTestTemplate.Models
 
         public string traderFullName { get; set; }
 
-        public virtual ICollection<Account> listOfAccounts { get; set; }
+        /*public virtual ICollection<Account> listOfAccounts { get; set; }*/
 
+        public IList<TraderAccount> TraderAccounts { get; set; } = new List<TraderAccount>();
     }
 }

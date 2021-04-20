@@ -100,4 +100,11 @@ $('#manual-ajaxCreate').click(function (event) {
     $.get(this.href, function (html) {
         $(html).appendTo('body').modal();
     });
-});*/
+});
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})*/
+
+
+

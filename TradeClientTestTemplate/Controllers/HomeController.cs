@@ -31,7 +31,9 @@ namespace TradeClientTestTemplate.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            IEnumerable<Order> objList = _db.Order;
+            ViewBag.Traders = _db.traders;
+            return View(objList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

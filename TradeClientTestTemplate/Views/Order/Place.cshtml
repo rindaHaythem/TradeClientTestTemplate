@@ -6,7 +6,7 @@
 }
 <div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark">
     <div class="row  justify-content-end">
-        <a asp-area="Models" asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times-circle "></i></a>
+        <a asp-area="Models" asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times"></i></a>
     </div>
     <form method="post" asp-action="Place">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -26,7 +26,7 @@
         <input type="hidden" asp-for="uncommited" />
         <div class="row">
             <div class="col justify-content">
-                <h2 class="p-3 text-dark">Place Order</h2>
+                <h2 class="p-3 text-dark"><strong>Place Order</strong></h2>
             </div>
         </div>
         <div class="d-flex flex-row justify-content-start">
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label asp-for="OrderType"><strong>Order Type</strong></label>
                     <select asp-for="OrderType" class="form-control" required>
-                        <option value="1" selected>Market</option>
+                        <option value="1">Market</option>
                         <option value="2">Limit</option>
                         <option value="3">Stop</option>
                         <option value="4">Stop-Limit</option>
@@ -123,7 +123,7 @@
             <div class="col-3  p-1">
                 <label asp-for="TimeInForce"><strong>Time In Force</strong></label>
                 <select class="form-control" asp-for="TimeInForce">
-                    <option value="0" selected>DAY</option>
+                    <option value="0">DAY</option>
                     <option value="1">GTC</option>
                     <option value="2">OPG</option>
                     <option value="3">IOC</option>
@@ -149,6 +149,7 @@
                 <button type="submit" class="btn btn-warning w-100" value="Save">PLACE ORDER</button>
             </div>
         </div>
+        
     </form>
 </div>
 

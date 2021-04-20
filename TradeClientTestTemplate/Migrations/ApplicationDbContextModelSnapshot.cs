@@ -16,23 +16,8 @@ namespace TradeClientTestTemplate.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AccountTrader", b =>
-                {
-                    b.Property<string>("listOfAccountsaccountId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("listOfTraderstraderId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("listOfAccountsaccountId", "listOfTraderstraderId");
-
-                    b.HasIndex("listOfTraderstraderId");
-
-                    b.ToTable("AccountTrader");
-                });
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.Account", b =>
                 {
@@ -163,19 +148,48 @@ namespace TradeClientTestTemplate.Migrations
                     b.ToTable("traders");
                 });
 
-            modelBuilder.Entity("AccountTrader", b =>
+            modelBuilder.Entity("TradeClientTestTemplate.Models.TraderAccount", b =>
                 {
-                    b.HasOne("TradeClientTestTemplate.Models.Account", null)
-                        .WithMany()
-                        .HasForeignKey("listOfAccountsaccountId")
+                    b.Property<string>("AccountID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TraderID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AccountID", "TraderID");
+
+                    b.HasIndex("TraderID");
+
+                    b.ToTable("TradersAccounts");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.TraderAccount", b =>
+                {
+                    b.HasOne("TradeClientTestTemplate.Models.Account", "Account")
+                        .WithMany("TraderAccounts")
+                        .HasForeignKey("AccountID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TradeClientTestTemplate.Models.Trader", null)
-                        .WithMany()
-                        .HasForeignKey("listOfTraderstraderId")
+                    b.HasOne("TradeClientTestTemplate.Models.Trader", "Trader")
+                        .WithMany("TraderAccounts")
+                        .HasForeignKey("TraderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Trader");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.Account", b =>
+                {
+                    b.Navigation("TraderAccounts");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.Trader", b =>
+                {
+                    b.Navigation("TraderAccounts");
                 });
 #pragma warning restore 612, 618
         }
