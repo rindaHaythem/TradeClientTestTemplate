@@ -11,41 +11,41 @@ namespace QuickFix
 
             public ListCancelRequest() : base()
             {
-                this.Header.SetField(new QuickFix.Fields.MsgType("K"));
+                this.Header.SetField(new MsgType("K"));
             }
 
             public ListCancelRequest(
-                    QuickFix.Fields.ListID aListID,
-                    QuickFix.Fields.TransactTime aTransactTime
+                    ListID aListID,
+                    TransactTime aTransactTime
                 ) : this()
             {
                 this.ListID = aListID;
                 this.TransactTime = aTransactTime;
             }
 
-            public QuickFix.Fields.ListID ListID
+            public ListID ListID
             { 
                 get 
                 {
-                    QuickFix.Fields.ListID val = new QuickFix.Fields.ListID();
+                    ListID val = new ListID();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.ListID val) 
+            public void Set(ListID val) 
             { 
                 this.ListID = val;
             }
             
-            public QuickFix.Fields.ListID Get(QuickFix.Fields.ListID val) 
+            public ListID Get(ListID val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.ListID val) 
+            public bool IsSet(ListID val) 
             { 
                 return IsSetListID();
             }
@@ -54,29 +54,29 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.ListID);
             }
-            public QuickFix.Fields.TransactTime TransactTime
+            public TransactTime TransactTime
             { 
                 get 
                 {
-                    QuickFix.Fields.TransactTime val = new QuickFix.Fields.TransactTime();
+                    TransactTime val = new TransactTime();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.TransactTime val) 
+            public void Set(TransactTime val) 
             { 
                 this.TransactTime = val;
             }
             
-            public QuickFix.Fields.TransactTime Get(QuickFix.Fields.TransactTime val) 
+            public TransactTime Get(TransactTime val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.TransactTime val) 
+            public bool IsSet(TransactTime val) 
             { 
                 return IsSetTransactTime();
             }
@@ -85,29 +85,29 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.TransactTime);
             }
-            public QuickFix.Fields.Text Text
+            public Text Text
             { 
                 get 
                 {
-                    QuickFix.Fields.Text val = new QuickFix.Fields.Text();
+                    Text val = new Text();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.Text val) 
+            public void Set(Text val) 
             { 
                 this.Text = val;
             }
             
-            public QuickFix.Fields.Text Get(QuickFix.Fields.Text val) 
+            public Text Get(Text val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.Text val) 
+            public bool IsSet(Text val) 
             { 
                 return IsSetText();
             }
@@ -116,29 +116,29 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.Text);
             }
-            public QuickFix.Fields.EncodedTextLen EncodedTextLen
+            public EncodedTextLen EncodedTextLen
             { 
                 get 
                 {
-                    QuickFix.Fields.EncodedTextLen val = new QuickFix.Fields.EncodedTextLen();
+                    EncodedTextLen val = new EncodedTextLen();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.EncodedTextLen val) 
+            public void Set(EncodedTextLen val) 
             { 
                 this.EncodedTextLen = val;
             }
             
-            public QuickFix.Fields.EncodedTextLen Get(QuickFix.Fields.EncodedTextLen val) 
+            public EncodedTextLen Get(EncodedTextLen val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.EncodedTextLen val) 
+            public bool IsSet(EncodedTextLen val) 
             { 
                 return IsSetEncodedTextLen();
             }
@@ -147,29 +147,29 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.EncodedTextLen);
             }
-            public QuickFix.Fields.EncodedText EncodedText
+            public EncodedText EncodedText
             { 
                 get 
                 {
-                    QuickFix.Fields.EncodedText val = new QuickFix.Fields.EncodedText();
+                    EncodedText val = new EncodedText();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.EncodedText val) 
+            public void Set(EncodedText val) 
             { 
                 this.EncodedText = val;
             }
             
-            public QuickFix.Fields.EncodedText Get(QuickFix.Fields.EncodedText val) 
+            public EncodedText Get(EncodedText val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.EncodedText val) 
+            public bool IsSet(EncodedText val) 
             { 
                 return IsSetEncodedText();
             }

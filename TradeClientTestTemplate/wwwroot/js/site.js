@@ -107,4 +107,8 @@ $('#myModal').on('shown.bs.modal', function () {
 })*/
 
 
+$(document).ready(function () {
+    $('#orderTable').DataTable();
+});
+
 

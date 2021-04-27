@@ -1,56 +1,63 @@
 ﻿@model IEnumerable<TradeClientTestTemplate.Models.Order>
-@{
-    ViewData["Title"] = "Privacy Policy";
-}
 
-<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
-<div class="container">
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Select a trader
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            @foreach (var trd in ViewBag.Traders)
-            {
-                <a class="dropdown-item text-primary" href="#">@trd.traderFullName</a>
-            }
+<div class="container p-3">
+
+    <div class="row pt-4">
+        <div class="col-6">
+            <h4 class="text-primary">Trader Desk</h4>
+        </div>
+    </div>
+    <div class="row justify-content-between">
+        <div class="col-6 ">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select a trader
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach (var trd in ViewBag.Traders)
+                    {
+                        <a class="dropdown-item text-primary" href="#">@trd.traderFullName</a>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-6 d-block">
+            <a asp-area="Models" asp-controller="Order" asp-action="Create" class="btn p-1 btn-outline-success" type="button">
+                <span class="btn-inner--text"><i class="fas fa-plus"></i> &ensp; Order form</span>
+            </a>
         </div>
     </div>
 </div>
 
 <div class="container p-2">
-    <div class="table-responsive ">
+    <div>
 
         <div>
             @if (Model.Count() > 0)
             {
-                <table table id="tableTESTOR"
-                       data-search="true"
-                       data-show-columns="true"
-                       data-show-toggle="true"
-                       data-show-multi-sort="true"
-                       data-sort-priority='[{"sortName": "Status","sortOrder":"asc"},{"sortName": "timeCreated","sortOrder":"desc"},{"sortName": "transactTime","sortOrder":"asc"}]'>
+                <table id="orderTable" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th class="text-center text-danger"><strong>Action</strong></th>
-                            <th scope="col" class="sort" data-field="Status" data-sort="Status" data-sortable="true">Status</th>
-                            <th scope="col" class="sort" data-field="EquityName" data-sort="EquityName" data-sortable="true">Name</th>
-                            <th scope="col" class="sort" data-sort="account" data-sortable="true">Account</th>
-                            <th scope="col" class="sort" data-sort="budget" data-sortable="true">Side</th>
-                            <th scope="col" class="sort" data-sort="Symbol" data-sortable="true">Symbol</th>
-                            <th scope="col" class="sort" data-sort="Ordered" data-sortable="true">Ordered</th>
-                            <th scope="col" class="sort" data-sort="Uncommitted" data-sortable="true">Uncommitted</th>
-                            <th scope="col" class="sort" data-sort="Placed" data-sortable="true">Placed</th>
-                            <th scope="col" class="sort" data-sort="Filled" data-sortable="true">Filled</th>
-                            <th scope="col" class="sort" data-sort="Leaves" data-sortable="true">Leaves</th>
-                            <th scope="col" class="sort" data-sort="OrderType" data-sortable="true">Order Type</th>
-                            <th scope="col" class="sort" data-sort="Price" data-sortable="true">Limit Price</th>
-                            <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
-                            <th scope="col" class="sort" data-sort="TimeInForce" data-sortable="true">TimeInForce</th>
-                            <th scope="col" class="sort" data-field="timeCreated" data-sort="timeCreated" data-sortable="true">Created time</th>
-                            <th scope="col" class="sort" data-field="transactTime" data-sort="transactTime" data-sortable="true">Transact time</th>
-
+                            <th>Action</th>
+                            <th><i class="fas fa-stream"></i>&ensp;Status</th>
+                            <th>Name</th>
+                            <th>Account</th>
+                            <th>Side</th>
+                            <th>Symbol</th>
+                            <th>Ordered</th>
+                            <th>Uncommitted</th>
+                            <th>Placed</th>
+                            <th>Filled</th>
+                            <th>Leaves</th>
+                            <th>Order Type</th>
+                            <th>Limit Price</th>
+                            <th>Stop Price</th>
+                            <th>TimeInForce</th>
+                            <th>Created time</th>
+                            <th>Transact time</th>
 
                         </tr>
                     </thead>
@@ -66,9 +73,7 @@
                                         {
                                             @**@
                                             <a asp-area="Controllers" asp-controller="Order"
-                                               asp-route-Id="@obj.portfolioManagerId" asp-action="Place" class="btn btn-outline-success btn-sm">
-                                                <i class="far fa-check-circle text-success"></i>
-                                            </a>
+                                               asp-route-Id="@obj.portfolioManagerId" asp-action="Place" class="btn btn-outline-success btn-sm"><i class="fas fa-check-double"></i></a>
                                         }
                                         @if (obj.ordered != obj.uncommited)
                                         {
@@ -89,10 +94,10 @@
                                     {
 
                                         case 'P':
-                                            <span class="text-warning text-center"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Pending</strong></span>;
+                                            <span class="text-info text-center"><i class="fas fa-spinner fa-pulse"></i>&ensp;<strong class="text-muted">Pending</strong></span>;
                                             break;
                                         case 'W':
-                                            <span class="text-primary text-center"><i class="fas fa-spinner fa-spin"></i> <strong class="text-muted">Working</strong></span>;
+                                            <span class="text-primary text-center"><i class="fas fa-spinner fa-spin"></i>&ensp;<strong class="text-muted">Working</strong></span>;
                                             break;
                                         case '0':
                                             <span class="badge badge-success text-center badge-pill">New</span>;
@@ -211,3 +216,5 @@
     </div>
 
 </div>
+
+
