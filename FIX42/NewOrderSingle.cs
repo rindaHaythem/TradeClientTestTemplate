@@ -1,6 +1,8 @@
 // This is a generated file.  Don't edit it directly!
 
 using QuickFix.Fields;
+using System;
+
 namespace QuickFix
 {
     namespace FIX42 
@@ -62,6 +64,17 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.ClOrdID);
             }
+
+            public bool isSetAccount()
+            {
+                throw new NotImplementedException();
+            }
+
+            public object getAccount()
+            {
+                throw new NotImplementedException();
+            }
+
             public QuickFix.Fields.ClientID ClientID
             { 
                 get 

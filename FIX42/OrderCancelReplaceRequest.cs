@@ -1,5 +1,3 @@
-// This is a generated file.  Don't edit it directly!
-
 using QuickFix.Fields;
 namespace QuickFix
 {
