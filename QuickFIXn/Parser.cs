@@ -2,8 +2,6 @@ using System;
 
 namespace QuickFix
 {
-    /// <summary>
-    /// </summary>
     public class Parser
     {
         private byte[] buffer_ = new byte[512];

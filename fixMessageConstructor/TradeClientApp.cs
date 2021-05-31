@@ -20,10 +20,10 @@ namespace fixMessageConstructor
         public void OnLogon(SessionID sessionID) { Console.WriteLine("Logon - " + sessionID.ToString()); }
         public void OnLogout(SessionID sessionID) { Console.WriteLine("Logout - " + sessionID.ToString()); }
 
-        public void FromAdmin(Message message, SessionID sessionID) { }
-        public void ToAdmin(Message message, SessionID sessionID) { }
+        public void FromAdmin(QuickFix.Message message, SessionID sessionID) { }
+        public void ToAdmin(QuickFix.Message message, SessionID sessionID) { }
 
-        public void FromApp(Message message, SessionID sessionID)
+        public void FromApp(QuickFix.Message message, SessionID sessionID)
         {
             Console.WriteLine("IN:  " + message.ToString());
             try
@@ -38,7 +38,7 @@ namespace fixMessageConstructor
             }
         }
 
-        public void ToApp(Message message, SessionID sessionID)
+        public void ToApp(QuickFix.Message message, SessionID sessionID)
         {
             try
             {

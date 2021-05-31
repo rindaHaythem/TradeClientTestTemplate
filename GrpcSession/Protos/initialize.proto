@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcSession";
+
+package initialize;
+
+service Initializer {
+	rpc InitializeFixMessage (initializeRequest) returns (initializeReply){};
+}
+
+message initializeRequest {
+	string partialfixmessage = 1;
+}
+
+message initializeReply {
+	string fixmessage = 1;
+}

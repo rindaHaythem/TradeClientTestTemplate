@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LineFIX.gRPC.Service
+namespace GrpcSession
 {
     public class Startup
     {
@@ -31,7 +31,7 @@ namespace LineFIX.gRPC.Service
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                //endpoints.MapGrpcService<InitializeeService>();
 
                 endpoints.MapGet("/", async context =>
                 {

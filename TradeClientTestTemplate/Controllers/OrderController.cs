@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TradeClientTestTemplate.Data;
 using TradeClientTestTemplate.Models;
 using QuickFix.Fields.Converters;
+using QuickFix.Fields;
 
 namespace TradeClientTestTemplate.Controllers
 {
@@ -91,12 +92,16 @@ namespace TradeClientTestTemplate.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 obj.TransactTime = DateTime.Now;
                 obj.status = 'P';
                 obj.placed += obj.Quantity;
                 obj.uncommited = (obj.ordered - obj.placed);
+                
                 _db.Order.Update(obj);
                 _db.SaveChanges();
+                //here send data thtough gRPC to Fix Engine
+
                 return RedirectToAction("Index", "Home");
             }
             return View(obj);

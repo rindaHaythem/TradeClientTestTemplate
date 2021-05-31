@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace TradeClient
+{
+    class Program
+    {
+        [STAThread]
+        static void Main(string[] args)
+        {
+            Console.WriteLine("=======================");
+            Console.WriteLine();
+            Console.WriteLine("                                                    ! ! !");
+            Console.WriteLine("                    LINEDATA LINEFIX TRADE CLIENT EXAMPLE");
+            Console.WriteLine("                                                    ! ! !");
+            Console.WriteLine();
+            Console.WriteLine("=======================");
+
+            if (args.Length != 1)
+            {
+                System.Console.WriteLine("usage: TradeClient.exe CONFIG_FILENAME");
+                System.Environment.Exit(2);
+            }
+
+            string file = args[0];
+
+            try
+            {
+                QuickFix.SessionSettings settings = new QuickFix.SessionSettings(file);
+                TradeClientApp application = new TradeClientApp();
+                QuickFix.IMessageStoreFactory storeFactory = new QuickFix.FileStoreFactory(settings);
+                QuickFix.ILogFactory logFactory = new QuickFix.ScreenLogFactory(settings);
+                QuickFix.Transport.SocketInitiator initiator = new QuickFix.Transport.SocketInitiator(application, storeFactory, settings, logFactory);
+
+                // this is a developer-test kludge.  do not emulate.
+                application.MyInitiator = initiator;
+
+                initiator.Start();
+                application.Run();
+                initiator.Stop();
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+            }
+            Environment.Exit(1);
+        }
+    }
+}

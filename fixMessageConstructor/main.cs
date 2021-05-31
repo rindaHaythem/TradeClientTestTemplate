@@ -28,7 +28,7 @@ namespace fixMessageConstructor
             try
             {
                 SessionSettings settings = new SessionSettings(file);
-                TradeClientApp application = new TradeClientApp();
+                SendFIXMessage application = new SendFIXMessage();
                 IMessageStoreFactory storeFactory = new FileStoreFactory(settings);
                 ILogFactory logFactory = new ScreenLogFactory(settings);
                 SocketInitiator initiator = new SocketInitiator(application, storeFactory, settings, logFactory);

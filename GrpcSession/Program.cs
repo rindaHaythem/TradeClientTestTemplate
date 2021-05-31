@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LineFIX.gRPC.Service
+namespace GrpcSession
 {
     public class Program
     {

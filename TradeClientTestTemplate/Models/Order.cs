@@ -20,7 +20,7 @@ namespace TradeClientTestTemplate.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime timeCreated { get; set; }
 
-        [Required]
+        [Required] //Char!!!!
         public int Side { get; set; }
         
         [Required]
@@ -39,7 +39,7 @@ namespace TradeClientTestTemplate.Models
         [DisplayName("Order Type")]
         public char OrderType { get; set; }
 
-        [DisplayName("Time In Force")]
+        [DisplayName("Time In Force")] //char!!!!
         public string TimeInForce { get; set; }
 
         [DataType(DataType.Text)]

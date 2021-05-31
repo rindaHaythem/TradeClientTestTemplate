@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcFixMessage";
+
+//import "google/protobuf/timestamp.proto";
+
+package construct;
+
+service Constructer {
+  rpc BuildFixMessageTesting (NewOrderSingleRequest) returns (NewOrderSingleReply);
+  //rpc BuildFixMessage (NewOrderSingleRequest) returns (EmptyMessageNewOrderSingleReply){};
+}
+
+message NewOrderSingleRequest {
+  string clOrdId = 1;
+  string side = 2;  //char
+  string symbol = 3;
+  int32 quantity = 4;
+  string orderType = 5; //char
+  string limitPrice = 6; //decimal
+  string stopPrice = 7; //decimal
+  string transactTime = 8; //timeStamp
+  //google.protobuf.TimeStamp transactTime = 8; //timeStamp
+  string timeInForce = 9; //char
+  string dateGTD = 10; //date
+  string note = 11;
+}
+
+message EmptyMessageNewOrderSingleReply{}
+
+//For testing
+message NewOrderSingleReply {
+  string fixmessage = 1;
+}
