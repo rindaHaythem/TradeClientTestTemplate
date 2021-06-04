@@ -12,5 +12,6 @@ namespace TradeClientTestTemplate.Models
         public int BrokerID { get; set; }
         public string BrokerName { get; set; }
         public string BrokerSymbol { get; set; }
+        public IList<DestinationBroker> DestinationBrokers { get; set; }
     }
 }

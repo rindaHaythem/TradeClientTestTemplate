@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradeClientTestTemplate.Data;
 
 namespace TradeClientTestTemplate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210604083425_updatingattributesTypes")]
+    partial class updatingattributesTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,21 +67,6 @@ namespace TradeClientTestTemplate.Migrations
                     b.HasKey("DestinationID");
 
                     b.ToTable("destinations");
-                });
-
-            modelBuilder.Entity("TradeClientTestTemplate.Models.DestinationBroker", b =>
-                {
-                    b.Property<int>("BrokerID")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("DestinationID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BrokerID", "DestinationID");
-
-                    b.HasIndex("DestinationID");
-
-                    b.ToTable("DestinationBrokers");
                 });
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.EquitiesSymbols", b =>
@@ -270,25 +257,6 @@ namespace TradeClientTestTemplate.Migrations
                     b.ToTable("TradersAccounts");
                 });
 
-            modelBuilder.Entity("TradeClientTestTemplate.Models.DestinationBroker", b =>
-                {
-                    b.HasOne("TradeClientTestTemplate.Models.Broker", "Broker")
-                        .WithMany("DestinationBrokers")
-                        .HasForeignKey("BrokerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TradeClientTestTemplate.Models.Destination", "Destination")
-                        .WithMany("DestinationBrokers")
-                        .HasForeignKey("DestinationID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Broker");
-
-                    b.Navigation("Destination");
-                });
-
             modelBuilder.Entity("TradeClientTestTemplate.Models.TraderAccount", b =>
                 {
                     b.HasOne("TradeClientTestTemplate.Models.Account", "Account")
@@ -311,16 +279,6 @@ namespace TradeClientTestTemplate.Migrations
             modelBuilder.Entity("TradeClientTestTemplate.Models.Account", b =>
                 {
                     b.Navigation("TraderAccounts");
-                });
-
-            modelBuilder.Entity("TradeClientTestTemplate.Models.Broker", b =>
-                {
-                    b.Navigation("DestinationBrokers");
-                });
-
-            modelBuilder.Entity("TradeClientTestTemplate.Models.Destination", b =>
-                {
-                    b.Navigation("DestinationBrokers");
                 });
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.Trader", b =>

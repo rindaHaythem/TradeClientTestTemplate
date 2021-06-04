@@ -34,13 +34,22 @@
                         {
                             <tr>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                    </div>
+                                    @if (pl.Placed != pl.Filled)
+                                    {
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                            <div class="dropdown-menu justify-content-between" aria-labelledby="btnGroupDrop1">
+                                                <a class="dropdown-item text-danger" href="#"><i class="fi-ctluxl-times-thin text-warning"></i>&nbsp;Cancel</a>
+                                                <a class="dropdown-item text-primary" href="#"><i class="fi-ctluhl-change-thin text-primary"></i>&nbsp;Cancel Replace</a>
+                                                <a class="dropdown-item text-danger" href="#"><i class="fi-ctsuxl-times-thin text-danger"></i>&nbsp;Forced Cancel</a>
+                                            </div>
+                                        </div>
+                                    }
                                 </td>
                                 <td>
                                     @{ if (pl.status.Equals('P'))
                                         {
-                                            <span class="text-info text-center"><i class="fas fa-spinner fa-pulse"></i>&ensp;<strong class="text-muted">Pending</strong></span>
+                                            <span class="text-warning text-center"><i class="fas fa-spinner fa-pulse"></i>&ensp;<strong class="text-muted">Pending</strong></span>
                                         }
                                         else if (pl.status.Equals('W'))
                                         {
@@ -90,23 +99,22 @@
                                             break;
                                     }*@
                                 </td>
-                                <td></td>
+                                <td>@pl.DestinationID</td>
                                 <td>@pl.Placed</td>
                                 <td>
                                     @switch (int.Parse(pl.OrderType.ToString()))
                                     {
                                         case 1:
-                                            <span class="badge badge-dark text-center badge-pill">Market</span>;
+                                            <span class="badge badge-dark text-center badge-pill">MKT</span>;
                                             break;
                                         case 2:
                                             @pl.limitPrice;
                                             break;
                                         case 3:
-                                            <i class="fab fa-stripe-s"></i> @pl.stopPrice;
+                                            <span><i class="fi-cwluxl-small text-danger"></i> @pl.stopPrice</span> ;
                                             break;
                                         case 4:
-                                            <i class="fab fa-stripe-s"></i> @pl.stopPrice;
-                                            @pl.limitPrice;
+                                            <span><i class="fi-cwluxl-small text-danger"></i> @pl.stopPrice &emsp; @pl.limitPrice</span>;
                                             break;
                                         case 5:
                                             <span class="badge badge-info text-center badge-pill">Market On Close</span>;
@@ -114,25 +122,29 @@
                                     }
                                 </td>
                                 <td>@pl.Filled</td>
-                                <td>@pl.AvgPrice</td>
+                                <td>@if (pl.AvgPrice != decimal.Zero)
+                                    {
+                                     <span>@pl.AvgPrice</span> 
+                                    }   
+                                </td>
                                 <td>@pl.Working</td>
                                 <td>
-                                    @switch (int.Parse(pl.TimeInForce.ToString()))
+                                    @switch (pl.TimeInForce)
                                     {
-                                        case 0:
-                                            <span>Day</span>;
+                                        case '0':
+                                            <span>Day <small class="text-primary">@Convert.ToDateTime(DateTime.Today).ToString("dd-MM")</small></span>;
                                             break;
-                                        case 1:
-                                            <span>Good Till Cancel <small class="text-muted">(GTC)</small></span>;
+                                        case '1':
+                                            <span>GTC <small class="text-primary">@Convert.ToDateTime(DateTime.Today).ToString("dd-MM")</small></span>;
                                             break;
-                                        case 3:
-                                            <span>Immediate Or Cancel <small class="text-muted">(IOC)</small></span>;
+                                        case '3':
+                                            <span>IOC <small class="text-primary">@Convert.ToDateTime(DateTime.Today).ToString("dd-MM")</small></span>;
                                             break;
-                                        case 4:
-                                            <span>Fill Or Kill <small class="text-muted">(FOK)</small></span>;
+                                        case '4':
+                                            <span>FOK <small class="text-primary">@Convert.ToDateTime(DateTime.Today).ToString("dd-MM")</small></span>;
                                             break;
-                                        case 6:
-                                            <span>Good Till Day <small class="text-muted">(GTD)</small></span>;
+                                        case '6':
+                                            <span>GTD <small class="text-primary">@Convert.ToDateTime(pl.dateGTD).ToString("dd-MM")</small></span>;
                                             break;
                                     }
                                 </td>
@@ -143,10 +155,11 @@
                                     }
                                     else
                                     {
-                                        @pl.SendingTime
+                                        <span><small class="text-info">@Convert.ToDateTime(pl.SendingTime).ToString("dd-MM") </small>&ensp;@Convert.ToDateTime(pl.SendingTime).ToString("HH:mm:ss")</span>
                                     }
                                 </td>
                                 <td>@pl.Broker</td>
+                                <td>@pl.ClOrdId</td>
                                 <td>@pl.PlacementID</td>
                             </tr>
                         }
@@ -156,7 +169,7 @@
 
             else
             {
-                <h1 class="display-2 text-center"> No Order Exists.</h1>
+                <h1 class="display-2 text-center"> No Placements Exists.</h1>
             }
         </div>
 

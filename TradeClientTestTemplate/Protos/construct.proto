@@ -24,6 +24,7 @@ message NewOrderSingleRequest {
   string timeInForce = 9; //char
   string dateGTD = 10; //date
   string note = 11;
+  string targetCompID = 12;
 }
 
 message EmptyMessageNewOrderSingleReply{}

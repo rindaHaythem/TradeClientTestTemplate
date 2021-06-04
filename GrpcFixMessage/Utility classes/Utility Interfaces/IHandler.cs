@@ -18,6 +18,7 @@ namespace GrpcFixMessage
                                     );
         string headerAndMessageAndTrailerHandler(QuickFix.FIX42.NewOrderSingle orderBody,
                                     string transactTime,
+                                    string targetCompId,
                                     int messageSequenceNumber
                                     );
     }

@@ -4,7 +4,7 @@
     ViewBag.Title = "Place";
 }
 
-<div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark">
+<div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-warning border-2 rounded text-dark">
     <div class="row  justify-content-end">
         <a asp-area="Models" asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times"></i></a>
     </div>
@@ -13,7 +13,6 @@
         <input type="hidden" asp-for="portfolioManagerId" />
         <input type="hidden" asp-for="ClOrdId" />
         <input type="hidden" asp-for="status" />
-        <input type="hidden" asp-for="Placed" />
         <input type="hidden" asp-for="Filled" />
         <input type="hidden" asp-for="Working" />
         <div class="row">
@@ -24,7 +23,7 @@
         <div class="d-flex flex-row justify-content-start">
             <div class="p-1">
 
-                @if (ViewBag.Order.Side == 1)
+                @if (ViewBag.Order.Side == '1')
                 {
                     <h5 class="badge badge-success">BUY</h5>
                 }
@@ -64,7 +63,7 @@
             <div class="col-6  p-1">
                 <div class="form-group">
                     <label asp-for="OrderType"><strong>Order Type</strong></label>
-                    <select asp-for="OrderType" class="form-control" value="@ViewBag.Order.OrderType" required>
+                    <select asp-for="OrderType" class="form-control" required>
                         <option value="1">Market</option>
                         <option value="2">Limit</option>
                         <option value="3">Stop</option>
@@ -101,7 +100,7 @@
         <div class="row">
             <div class="col-3  p-1">
                 <label asp-for="TimeInForce"><strong>Time In Force</strong></label>
-                <select class="form-control" asp-for="TimeInForce">
+                <select class="form-control" asp-for="TimeInForce" >
                     <option value="0">DAY</option>
                     <option value="1">GTC</option>
                     <option value="2">OPG</option>
@@ -129,7 +128,7 @@
                 <select asp-for="DestinationID" class="form-control" required>
                     @foreach (var dst in ViewBag.Destinations)
                     {
-                        <option value="@dst.DestinationName">@dst.DestinationName</option>
+                        <option value="@dst.DestinationID.ToString()">@dst.DestinationName</option>
                     }
                 </select>
             </div>
@@ -143,12 +142,9 @@
     </form>
 </div>
 
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-
 <script >
     $(function () {
         $("#OrderType").select(function () {

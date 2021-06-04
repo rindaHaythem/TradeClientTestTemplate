@@ -65,7 +65,15 @@ namespace TradeClientTestTemplate.Controllers
                 {
                     DecimalConverter.Convert(obj.stopPrice);
                 }
+                else
+                {
+                    DecimalConverter.Convert(obj.stopPrice);
+                }
                 if (obj.limitPrice != decimal.Zero)
+                {
+                    DecimalConverter.Convert(obj.limitPrice);
+                }
+                else
                 {
                     DecimalConverter.Convert(obj.limitPrice);
                 }
@@ -75,6 +83,7 @@ namespace TradeClientTestTemplate.Controllers
                 obj.filled =0;
                 obj.uncommited = (obj.ordered - obj.placed);
                 obj.leaves = (obj.ordered - obj.filled);
+                
                 _db.Order.Add(obj);
                 _db.SaveChanges();
             }
@@ -107,24 +116,23 @@ namespace TradeClientTestTemplate.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Place(Placement pl)
         {
-            
-                #region update Order
-                var obj = _db.Order.Find(TempData["OrderID"]);
-                obj.placed += obj.Quantity;
-                obj.uncommited = (obj.ordered - obj.placed);
 
-                if (obj.placed != obj.Quantity)
-                {
-                    obj.status = 'Z';
-                }
-                else
-                {
-                    obj.status = 'Y';
-                }
-                #endregion
-                
+            #region update Order
+            var id = TempData["OrderID"];
+            var obj = _db.Order.Find(id);
+            obj.placed += pl.Placed;
+            obj.uncommited = (obj.ordered - obj.placed);
+
+            if (obj.placed != obj.Quantity)
+            {
+                obj.status = 'Z';
+            }
+            else
+            {
+                obj.status = 'Y';
+            }
+            #endregion
                 pl.PlacementID = Guid.NewGuid().ToString();
-                
                 pl.ClOrdId = obj.ClOrdId;
                 pl.status = 'P';
                 pl.AvgPrice = decimal.Zero;
@@ -136,30 +144,39 @@ namespace TradeClientTestTemplate.Controllers
                 _db.Placement.Update(pl);
                 _db.SaveChanges();
 
-                #region Send data though gRPC to Fix Engine
-
-                var client = new Constructer.ConstructerClient(channel);
-                NewOrderSingleRequest newOrderSingleRequest = new NewOrderSingleRequest();
-                var config = new MapperConfiguration(cfg =>
+            #region Send data though gRPC to Fix Engine
+            var client = new Constructer.ConstructerClient(channel);
+            NewOrderSingleRequest newOrderSingleRequest = new NewOrderSingleRequest();
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Placement, NewOrderSingleRequest>()
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.OrderType, act => act.MapFrom(pl => pl.OrderType.ToString()))
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.LimitPrice, act => act.MapFrom(pl => NullToString(pl.limitPrice)))
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.StopPrice, act => act.MapFrom(pl => NullToString(pl.stopPrice)))
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.TransactTime, act => act.MapFrom(pl => pl.SendingTime))
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.TimeInForce, act => act.MapFrom(pl => pl.TimeInForce))
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.DateGTD, act => act.MapFrom(pl => NullToString(pl.dateGTD)))
+                    .ForMember(newOrderSingleRequest => newOrderSingleRequest.Note, act => act.MapFrom(pl => NullToString(pl.Note)));
+            });
+            
+            var mapper = new Mapper(config);
+            newOrderSingleRequest = mapper.Map<NewOrderSingleRequest>(pl);
+            newOrderSingleRequest.Quantity = pl.Placed;
+            newOrderSingleRequest.Side = obj.Side.ToString();
+            newOrderSingleRequest.Symbol = obj.Symbol;
+            IEnumerable<Destination> destList = _db.destinations;
+            foreach (var dest in destList)
+            {
+                if (dest.DestinationID.ToString() == pl.DestinationID)
                 {
-                    cfg.CreateMap<Placement, NewOrderSingleRequest>()
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.OrderType, act => act.MapFrom(pl => pl.OrderType.ToString()))
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.LimitPrice, act => act.MapFrom(pl => NullToString(pl.limitPrice)))
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.StopPrice, act => act.MapFrom(pl => NullToString(pl.stopPrice)))
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.TransactTime, act => act.MapFrom(pl => pl.SendingTime))
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.TimeInForce, act => act.MapFrom(pl => pl.TimeInForce))
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.DateGTD, act => act.MapFrom(pl => NullToString(pl.dateGTD)))
-                        .ForMember(newOrderSingleRequest => newOrderSingleRequest.Note, act => act.MapFrom(pl => NullToString(pl.Note)));
-                });
+                    newOrderSingleRequest.TargetCompID = dest.DestinationName.ToString();
+                    break;
+                }
+            }
+            client.BuildFixMessage(newOrderSingleRequest);
+            #endregion
 
-                var mapper = new Mapper(config);
-                newOrderSingleRequest = mapper.Map<NewOrderSingleRequest>(pl);
-                newOrderSingleRequest.Side = obj.Side.ToString();
-                newOrderSingleRequest.Symbol = obj.Symbol;
-                client.BuildFixMessage(newOrderSingleRequest);
-                #endregion
-
-                return RedirectToAction("Placement", "Home");
+            return RedirectToAction("Placement", "Home");
             
             //return View(orderPlaceViewModel);
 

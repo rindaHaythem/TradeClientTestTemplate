@@ -60,6 +60,7 @@ namespace GrpcFixMessage
 
             string orderMessage = _handler.headerAndMessageAndTrailerHandler(orderBody,
                                                                             request.TransactTime,
+                                                                            request.TargetCompID,
                                                                             1);
 
             _logger.LogInformation("The output FIX message:");

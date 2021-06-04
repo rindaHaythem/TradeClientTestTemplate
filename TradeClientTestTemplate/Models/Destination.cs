@@ -13,5 +13,6 @@ namespace TradeClientTestTemplate.Models
         [Key]
         public Guid DestinationID { get; set; }
         public string DestinationName { get; set; }
+        public IList<DestinationBroker> DestinationBrokers { get; set; }
     }
 }

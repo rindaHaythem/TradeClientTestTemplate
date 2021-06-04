@@ -20,7 +20,7 @@ namespace TradeClientTestTemplate.Controllers
             _db = db;
             /*_logger = logger;*/
         }
-       
+
 
         public IActionResult Index()
         {

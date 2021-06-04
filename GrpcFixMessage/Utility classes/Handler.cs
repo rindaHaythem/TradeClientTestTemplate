@@ -68,6 +68,7 @@ namespace GrpcFixMessage
         public string headerAndMessageAndTrailerHandler(
                                     QuickFix.FIX42.NewOrderSingle message,
                                     string transactTime,
+                                    string targetCompID,
                                     int messageSequenceNumber
                                     )
         {
@@ -79,8 +80,8 @@ namespace GrpcFixMessage
             message.Header.SetField(new SendingTime(DateTimeConverter.ConvertToDateTime(sendTime)));
             
             //for testing purposes
-            message.Header.SetField(new SenderCompID("Haythem123"));
-            message.Header.SetField(new TargetCompID("Broker999"));
+            message.Header.SetField(new SenderCompID("LINEFIXtrade"));
+            message.Header.SetField(new TargetCompID(targetCompID.ToString()));
 
             return message.ToString().Replace("\u0001", "|");
         }

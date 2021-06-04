@@ -18,6 +18,8 @@ namespace TradeClientTestTemplate.Data
         public DbSet<Account> accounts { get; set; }
         public DbSet<Trader> traders { get; set; }
         public DbSet<TraderAccount> TradersAccounts { get; set; }
+        public DbSet<DestinationBroker> DestinationBrokers { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -25,6 +27,7 @@ namespace TradeClientTestTemplate.Data
          protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             modelBuilder.Entity<TraderAccount>().HasKey(c => new { c.AccountID, c.TraderID });
+            modelBuilder.Entity<DestinationBroker>().HasKey(d => new { d.BrokerID, d.DestinationID });
         } 
         
     }
