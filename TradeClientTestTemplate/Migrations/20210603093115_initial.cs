@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TradeClientTestTemplate.Migrations
 {
-    public partial class initials : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,6 +18,18 @@ namespace TradeClientTestTemplate.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_accounts", x => x.accountId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "destinations",
+                columns: table => new
+                {
+                    DestinationID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DestinationName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_destinations", x => x.DestinationID);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,14 +54,13 @@ namespace TradeClientTestTemplate.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ClOrdId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     timeCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Side = table.Column<int>(type: "int", nullable: false),
+                    Side = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    limitPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    stopPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    limitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    stopPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OrderType = table.Column<string>(type: "nvarchar(1)", nullable: false),
-                    TimeInForce = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimeInForce = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     status = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     ordered = table.Column<int>(type: "int", nullable: false),
                     uncommited = table.Column<int>(type: "int", nullable: false),
@@ -59,12 +70,42 @@ namespace TradeClientTestTemplate.Migrations
                     account = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     trader = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EquityFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TransactTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     dateGTD = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Order", x => x.portfolioManagerId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Placement",
+                columns: table => new
+                {
+                    portfolioManagerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlacementID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Broker = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClOrdId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Side = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    Symbol = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    status = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    OrderType = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    limitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    stopPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AvgPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimeInForce = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    dateGTD = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Placed = table.Column<int>(type: "int", nullable: false),
+                    Filled = table.Column<int>(type: "int", nullable: false),
+                    Working = table.Column<int>(type: "int", nullable: false),
+                    TransactTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Placement", x => x.portfolioManagerId);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,10 +154,16 @@ namespace TradeClientTestTemplate.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "destinations");
+
+            migrationBuilder.DropTable(
                 name: "EquitiesSymbols");
 
             migrationBuilder.DropTable(
                 name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Placement");
 
             migrationBuilder.DropTable(
                 name: "TradersAccounts");

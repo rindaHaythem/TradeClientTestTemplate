@@ -14,7 +14,14 @@ namespace GrpcFixMessage
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGrpc();
+            services.AddGrpc(opts => {
+                opts.EnableDetailedErrors = true;
+                opts.MaxReceiveMessageSize = 4096;
+                opts.MaxSendMessageSize = 4096;
+            });
+
+            services.AddSingleton<Handler>();
+            services.AddSingleton<DemoTestingAcceptorSession>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

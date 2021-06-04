@@ -1,9 +1,9 @@
-﻿@model TradeClientTestTemplate.Models.Order
+﻿@model TradeClientTestTemplate.Models.Placement
 
 @{
     ViewBag.Title = "Place";
-
 }
+
 <div class="container-fluid m-4 px-4 py-2 col-8 justify-content-center clearfix border border-info border-2 rounded text-dark">
     <div class="row  justify-content-end">
         <a asp-area="Models" asp-controller="Home" asp-action="Index" type="button" class="close btn-lg text-primary "><i class="fas fa-times"></i></a>
@@ -13,17 +13,9 @@
         <input type="hidden" asp-for="portfolioManagerId" />
         <input type="hidden" asp-for="ClOrdId" />
         <input type="hidden" asp-for="status" />
-        <input type="hidden" asp-for="Side" />
-        <input type="hidden" asp-for="Symbol" />
-        <input type="hidden" asp-for="timeCreated" />
-        <input type="hidden" asp-for="ordered" />
-        <input type="hidden" asp-for="placed" />
-        <input type="hidden" asp-for="filled" />
-        <input type="hidden" asp-for="leaves" />
-        <input type="hidden" asp-for="account" />
-        <input type="hidden" asp-for="trader" />
-        <input type="hidden" asp-for="EquityFullName" />
-        <input type="hidden" asp-for="uncommited" />
+        <input type="hidden" asp-for="Placed" />
+        <input type="hidden" asp-for="Filled" />
+        <input type="hidden" asp-for="Working" />
         <div class="row">
             <div class="col justify-content">
                 <h2 class="p-3 text-dark"><strong>Place Order</strong></h2>
@@ -32,7 +24,7 @@
         <div class="d-flex flex-row justify-content-start">
             <div class="p-1">
 
-                @if (Model.Side == 1)
+                @if (ViewBag.Order.Side == 1)
                 {
                     <h5 class="badge badge-success">BUY</h5>
                 }
@@ -43,48 +35,36 @@
 
             </div>
             <div class="p-1">
-                <h4 asp-for="Symbol"><strong>@Model.Symbol</strong></h4>
+                <h4 asp-for="Symbol"><strong>@ViewBag.Order.Symbol</strong></h4>
             </div>
             <div class="p-1">
-                <h4 asp-for="EquityFullName">-&nbsp;@Model.EquityFullName</h4>
+                <h4 asp-for="EquityFullName">-&nbsp;@ViewBag.Order.EquityFullName</h4>
             </div>
         </div>
         <div class="row justify-content-between">
             <div class="col-4  p-1">
                 <div class="form-floating mb-3">
-                    <label asp-for="Quantity"><strong>Quantity</strong></label>
-                    <input type="number" asp-for="Quantity" min="1" max="@Model.uncommited" class="form-control" oninput="validity.valid||(value='');" required value="@Model.uncommited" />
+                    <label asp-for="Placed"><strong>Quantity</strong></label>
+                    <input type="number" asp-for="Placed" min="1" max="@ViewBag.Order.uncommited" class="form-control" oninput="validity.valid||(value='');" required value="@ViewBag.Order.uncommited" />
                 </div>
             </div>
             <div class="col-7 p-1 justify-content-end">
                 <div class="form-group ">
                     <label class="text-info"><i class="fas fa-landmark"></i><strong>&nbsp;CASH</strong><small class="text-danger"> &nbsp; *Please choose a destination!</small></label>
-                    <select id="SelectorList" class="form-control" required>
-                        <option value="n/a">JP Morgan Chase (JPM)</option>
-                        <option value="o/k">Goldman Sachs (GS)</option>
-                        <option value="o/k">Morgan Stanley (MS)</option>
-                        <option value="n/a">Bank of America Corporation (BAC)</option>
+                    <select asp-for="Broker" class="form-control" required>
+                        @foreach (var brk in ViewBag.Brokers)
+                        {
+                            <option value="@brk.BrokerSymbol">@brk.BrokerName (@brk.BrokerSymbol)</option>
+                        }
                     </select>
-
                 </div>
-                @*<div class="btn-group">
-                    <button type="button" class="btn btn-info form-control dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select destination<b class="caret"></b>
-                    </button>
-                    <ul class="dropdown-menu ">
-                        <li class="dropdown-item text-primary" ><i class="fas fa-unlink text-danger"></i><a>&nbsp;JP Morgan Chase&nbsp;</a><strong class="text-muted">(JPM)</strong></li>
-                        <li class="dropdown-item text-primary" value="0" ><i class="fas fa-unlink text-danger"></i><a>&nbsp;Goldman Sachs&nbsp;</a><strong class="text-muted">(GS)</strong></li>
-                        <li class="dropdown-item text-primary" value><i class="fas fa-link text-success"></i><a>&nbsp;Morgan Stanley&nbsp;</a><strong class="text-muted">(MS)</strong></li>
-                        <li class="dropdown-item text-primary" ><i class="fas fa-unlink text-danger"></i><a>&nbsp;Bank of America Corporation&nbsp;</a><strong class="text-muted">(BAC)</strong></li>
-                    </ul>
-                </div>*@
             </div>
         </div>
         <div class="row justify-content-between">
             <div class="col-6  p-1">
                 <div class="form-group">
                     <label asp-for="OrderType"><strong>Order Type</strong></label>
-                    <select asp-for="OrderType" class="form-control" required>
+                    <select asp-for="OrderType" class="form-control" value="@ViewBag.Order.OrderType" required>
                         <option value="1">Market</option>
                         <option value="2">Limit</option>
                         <option value="3">Stop</option>
@@ -94,29 +74,28 @@
                 </div>
             </div>
             <div class="col-4 justify-content-end">
-                <label asp-for="ordered"><strong>Original</strong></label>
-                <p>@Model.ordered</p>
+                <label><strong>Original</strong></label>
+                <p>@ViewBag.Order.ordered</p>
             </div>
-
 
         </div>
         <div class="row justify-content-between">
             <div class="col-3  p-1">
                 <div class="form-group">
                     <label asp-for="stopPrice"><strong>Stop Price</strong></label>
-                    <input type="text" class="number-only form-control" asp-for="stopPrice" onfocus="this.value='';" disabled="disabled" required />
+                    <input type="text" class="number-only form-control" name="StopPrice" asp-for="stopPrice" onfocus="this.value='';" disabled="disabled" required />
                 </div>
             </div>
             <div class="col-3  p-1">
                 <div class="form-group">
                     <label asp-for="limitPrice"><strong>Limit Price</strong></label>
-                    <input type="text" class="number-only form-control" asp-for="limitPrice" onfocus="this.value='';" disabled="disabled" required />
+                    <input type="text" class="number-only form-control" name="LimitPrice" asp-for="limitPrice" onfocus="this.value='';" disabled="disabled" required />
                 </div>
             </div>
 
             <div class="col-4 justify-content-end">
-                <label asp-for="uncommited"><strong>Uncommitted</strong></label>
-                <p>@Model.uncommited</p>
+                <label><strong>Uncommitted</strong></label>
+                <p>@ViewBag.Order.uncommited</p>
             </div>
         </div>
         <div class="row">
@@ -141,7 +120,18 @@
         <div class="row">
             <div class="form-group col-6 p-1">
                 <label asp-for="Note"><strong>Notes</strong></label>
-                <textarea class="form-control" asp-for="Note" rows="2"></textarea>
+                <textarea class="form-control" name="Note" asp-for="Note" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="col-7 p-1 justify-content-end">
+            <div class="form-group ">
+                <label class="text-info"><i class="fas fa-landmark"></i><strong>&nbsp;CASH</strong><small class="text-danger"> &nbsp; *Please choose a destination!</small></label>
+                <select asp-for="DestinationID" class="form-control" required>
+                    @foreach (var dst in ViewBag.Destinations)
+                    {
+                        <option value="@dst.DestinationName">@dst.DestinationName</option>
+                    }
+                </select>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -149,7 +139,7 @@
                 <button type="submit" class="btn btn-warning w-100" value="Save">PLACE ORDER</button>
             </div>
         </div>
-        
+
     </form>
 </div>
 

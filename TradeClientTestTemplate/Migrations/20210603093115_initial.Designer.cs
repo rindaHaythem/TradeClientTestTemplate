@@ -10,15 +10,15 @@ using TradeClientTestTemplate.Data;
 namespace TradeClientTestTemplate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210419115738_initials")]
-    partial class initials
+    [Migration("20210603093115_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.Account", b =>
@@ -35,6 +35,20 @@ namespace TradeClientTestTemplate.Migrations
                     b.HasKey("accountId");
 
                     b.ToTable("accounts");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.Destination", b =>
+                {
+                    b.Property<Guid>("DestinationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DestinationName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DestinationID");
+
+                    b.ToTable("destinations");
                 });
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.EquitiesSymbols", b =>
@@ -69,9 +83,6 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<string>("EquityFullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("OrderType")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
@@ -79,18 +90,17 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Side")
-                        .HasColumnType("int");
+                    b.Property<string>("Side")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Symbol")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TimeInForce")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TransactTime")
-                        .HasColumnType("datetime2");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("account")
                         .HasColumnType("nvarchar(max)");
@@ -104,8 +114,8 @@ namespace TradeClientTestTemplate.Migrations
                     b.Property<int>("leaves")
                         .HasColumnType("int");
 
-                    b.Property<string>("limitPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("limitPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ordered")
                         .HasColumnType("int");
@@ -117,8 +127,8 @@ namespace TradeClientTestTemplate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<string>("stopPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("stopPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("timeCreated")
                         .HasColumnType("datetime2");
@@ -132,6 +142,81 @@ namespace TradeClientTestTemplate.Migrations
                     b.HasKey("portfolioManagerId");
 
                     b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("TradeClientTestTemplate.Models.Placement", b =>
+                {
+                    b.Property<int>("portfolioManagerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AvgPrice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Broker")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClOrdId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Filled")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrderType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("Placed")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlacementID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Side")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeInForce")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<DateTime>("TransactTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Working")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("dateGTD")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("limitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<decimal>("stopPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("portfolioManagerId");
+
+                    b.ToTable("Placement");
                 });
 
             modelBuilder.Entity("TradeClientTestTemplate.Models.Trader", b =>

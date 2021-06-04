@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrpcFixMessage
 {
-    public class TradeClientLogic : MessageCracker, IApplication
+    public class DemoTestingAcceptorSession : MessageCracker, IApplication
     {
         Session _session = null;
 
@@ -17,11 +17,24 @@ namespace GrpcFixMessage
             _session = Session.LookupSession(sessionID);
         }
 
-        public void OnLogon(SessionID sessionID) { Console.WriteLine("Logon - " + sessionID.ToString()); }
-        public void OnLogout(SessionID sessionID) { Console.WriteLine("Logout - " + sessionID.ToString()); }
+        public void OnLogon(SessionID sessionID) 
+        {
+            throw new NotImplementedException();
+        }
+        public void OnLogout(SessionID sessionID)
+        {
+            throw new NotImplementedException();
+        }
+        public void FromAdmin(QuickFix.Message message, SessionID sessionID)
+        {
+            throw new NotImplementedException();
+        }
+        public void ToAdmin(QuickFix.Message message, SessionID sessionID)
+        {
+            throw new NotImplementedException();
+        }
 
-
-        public void FromApp(Message message, SessionID sessionID)
+        public void FromApp(QuickFix.Message message, SessionID sessionID)
         {
             Console.WriteLine("IN:  " + message.ToString());
             try
@@ -35,7 +48,7 @@ namespace GrpcFixMessage
             }
         }
 
-        public void ToApp(Message message, SessionID sessionID)
+        public void ToApp(QuickFix.Message message, SessionID sessionID)
         {
             try
             {
@@ -43,7 +56,7 @@ namespace GrpcFixMessage
                 if (message.Header.IsSetField(QuickFix.Fields.Tags.PossDupFlag))
                 {
                     possDupFlag = QuickFix.Fields.Converters.BoolConverter.Convert(
-                        message.Header.GetString(QuickFix.Fields.Tags.PossDupFlag)); /// FIXME
+                        message.Header.GetString(QuickFix.Fields.Tags.PossDupFlag)); 
                 }
                 if (possDupFlag)
                     throw new DoNotSend();
@@ -54,22 +67,10 @@ namespace GrpcFixMessage
             Console.WriteLine();
             Console.WriteLine("OUT: " + message.ToString());
         }
-        public void FromAdmin(Message message, SessionID sessionID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ToAdmin(Message message, SessionID sessionID)
-        {
-            throw new NotImplementedException();
-        }
+        
         #endregion
 
-        private void SendMessage(Message m)
-        {
-            _session.Send(m);
-        }
-
+        
 
 
     }

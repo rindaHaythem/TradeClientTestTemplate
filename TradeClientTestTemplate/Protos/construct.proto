@@ -2,6 +2,7 @@ syntax = "proto3";
 
 option csharp_namespace = "GrpcFixMessage";
 
+//import "google/protobuf/timestamp.proto";
 
 package construct;
 
@@ -19,6 +20,7 @@ message NewOrderSingleRequest {
   string limitPrice = 6; //decimal
   string stopPrice = 7; //decimal
   string transactTime = 8; //timeStamp
+  //google.protobuf.TimeStamp transactTime = 8; //timeStamp
   string timeInForce = 9; //char
   string dateGTD = 10; //date
   string note = 11;

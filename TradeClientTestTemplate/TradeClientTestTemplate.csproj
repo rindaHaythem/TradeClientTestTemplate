@@ -5,8 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
+    <None Remove="Protos\construct.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.17.2" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.37.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.38.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -15,13 +26,16 @@
     <PackageReference Include="QuickFIXn.Core" Version="1.10.0" />
     <PackageReference Include="QuickFIXn.FIX4.2" Version="1.10.0" />
     <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.9" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Protos\" />
-    <Folder Include="Services\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\construct.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

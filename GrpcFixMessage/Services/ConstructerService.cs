@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using static GrpcFixMessage.FixMessageConstructor;
 
 namespace GrpcFixMessage
 {
@@ -16,64 +17,55 @@ namespace GrpcFixMessage
     {
 
         private readonly ILogger<ConstructerService> _logger;
-        public ConstructerService(ILogger<ConstructerService> logger)
+        private readonly Handler _handler;
+        public ConstructerService(ILogger<ConstructerService> logger, Handler handler)
         {
             _logger = logger;
+            _handler = handler;
         }
 
+        
         //For testing purposes
-        public override Task<NewOrderSingleReply> BuildFixMessageTesting(NewOrderSingleRequest request, ServerCallContext context)
+/*        public override Task<NewOrderSingleReply> BuildFixMessageTesting(NewOrderSingleRequest request, ServerCallContext context)
         {
-            #region Order Body
-            var order = new QuickFix.FIX42.NewOrderSingle();
+            QuickFix.FIX42.NewOrderSingle orderBody = _handler.NewOrderSingleBodyHandler(request.ClOrdId,
+                                                            request.Side,
+                                                            request.Symbol,
+                                                            request.Quantity,
+                                                            request.OrderType,
+                                                            request.LimitPrice,
+                                                            request.StopPrice,
+                                                            request.TimeInForce,
+                                                            request.DateGTD,
+                                                            request.Note);
 
-            order.ClOrdID = new ClOrdID(request.ClOrdId);
-            order.Side = new Side(CharConverter.Convert(request.Side));
-            order.Symbol = new Symbol(request.Symbol);
-            order.OrderQty = new OrderQty(request.Quantity);
-            order.OrdType = new OrdType(CharConverter.Convert(request.OrderType));
+            string orderMessage = _handler.headerAndMessageAndTrailerHandler(orderBody,
+                                                                            request.TransactTime,
+                                                                            1);
+            return Task.FromResult(new NewOrderSingleReply { Fixmessage = orderMessage });
+        }
+*/
+        public override Task<EmptyMessageNewOrderSingleReply> BuildFixMessage(NewOrderSingleRequest request, ServerCallContext context)
+        {
+            QuickFix.FIX42.NewOrderSingle orderBody = _handler.NewOrderSingleBodyHandler(request.ClOrdId,
+                                                            request.Side,
+                                                            request.Symbol,
+                                                            request.Quantity,
+                                                            request.OrderType,
+                                                            request.LimitPrice,
+                                                            request.StopPrice,
+                                                            request.TimeInForce,
+                                                            request.DateGTD,
+                                                            request.Note);
 
-            if (CharConverter.Convert(request.OrderType) == '2')
-            {
-                order.Price = new Price(DecimalConverter.Convert(request.LimitPrice));
-            }
-            else if (CharConverter.Convert(request.OrderType) == '3')
-            {
-                order.StopPx = new StopPx(DecimalConverter.Convert(request.StopPrice));
-            }
-            else if (CharConverter.Convert(request.OrderType) == '4')
-            {
-                order.Price = new Price(DecimalConverter.Convert(request.LimitPrice));
-                order.StopPx = new StopPx(DecimalConverter.Convert(request.StopPrice));
-            }
-            
-            DateTime dt = DateTime.ParseExact(request.DateGTD, "yyyymmdd",
-                                  CultureInfo.InvariantCulture);
+            string orderMessage = _handler.headerAndMessageAndTrailerHandler(orderBody,
+                                                                            request.TransactTime,
+                                                                            1);
 
-            order.TimeInForce = new TimeInForce(CharConverter.Convert(request.TimeInForce));
-            if (CharConverter.Convert(request.TimeInForce) == '6')
-            {
-                order.SetField(new ExpireDate(dt.ToString()));
-            }
+            _logger.LogInformation("The output FIX message:");
+            _logger.LogInformation(orderMessage);
 
-            order.Text = new Text(request.Note);
-            order.Set(new HandlInst('1'));
-            #endregion
-
-            #region Message
-            order.Header.SetField(new MsgType("D"));
-
-            var sendingTime = DateTimeConverter.ConvertToDateTime(request.TransactTime);
-            //DateTime sendingTime = DateTime.ParseExact(request.TransactTime, "yyyyMMdd-HH:mm:ss", CultureInfo.InvariantCulture);
-            
-            order.Header.SetField(new SendingDate(sendingTime.));
-            #endregion
-
-            return Task.FromResult(new NewOrderSingleReply 
-            {
-                Fixmessage = order.ToString()
-            });
-
+            return Task.FromResult(new EmptyMessageNewOrderSingleReply());
         }
 
     }

@@ -13,7 +13,7 @@
         <div class="col-6 ">
             <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select a trader
+                    Select a trader desk
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     @foreach (var trd in ViewBag.Traders)
@@ -61,9 +61,7 @@
                             <th scope="col" class="sort" data-sort="Price" data-sortable="true">Stop Price</th>
                             <th scope="col" class="sort" data-sort="TimeInForce" data-sortable="true">TimeInForce</th>
                             <th scope="col" class="sort" data-field="timeCreated" data-sort="timeCreated" data-sortable="true">Created time</th>
-                            <th scope="col" class="sort" data-field="transactTime" data-sort="transactTime" data-sortable="true">Transact time</th>
-
-
+                            @*<th scope="col" class="sort" data-field="transactTime" data-sort="transactTime" data-sortable="true">Transact time</th>*@
                         </tr>
                     </thead>
 
@@ -73,37 +71,17 @@
                         <tr>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                    @**@
                                     @if (obj.ordered != obj.placed)
                                     {
-                                        @**@
                                         <a asp-area="Controllers" asp-controller="Order"
-                                           asp-route-Id="@obj.portfolioManagerId" asp-action="Place" class="btn btn-outline-success btn-sm"><i class="fas fa-check-double"></i></a>
+                                           asp-route-Id="@obj.portfolioManagerId" asp-action="Place" class="btn btn-outline-success btn-sm"><i class="fas fa-check-double"></i> Place</a>
                                     }
-                                    @if (obj.ordered != obj.uncommited)
-                                    {
-                                        <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                            <div class="dropdown-menu justify-content-between" aria-labelledby="btnGroupDrop1">
-                                                <a class="dropdown-item text-danger" href="#"><i class="fab fa-creative-commons-nd "></i>&nbsp; Cancel</a>
-                                                <a class="dropdown-item text-primary" href="#"><i class="far fa-times-circle"></i>&nbsp; Replace</a>
-                                            </div>
-                                        </div>
-                                    }
-
                                 </div>
 
                             </td>
                             <td>
                                 @switch (obj.status)
                                 {
-
-                                    case 'P':
-                                        <span class="text-info text-center"><i class="fas fa-spinner fa-pulse"></i>&ensp;<strong class="text-muted">Pending</strong></span>;
-                                        break;
-                                    case 'W':
-                                        <span class="text-primary text-center"><i class="fas fa-spinner fa-spin"></i>&ensp;<strong class="text-muted">Working</strong></span>;
-                                        break;
                                     case '0':
                                         <span class="badge badge-success text-center badge-pill">New</span>;
                                         break;
@@ -130,6 +108,12 @@
                                         break;
                                     case 'E':
                                         <span class="badge badge-info text-center badge-pill">Pending Replace</span>;
+                                        break;
+                                    case 'Y':
+                                        <span class="badge badge-info text-center badge-pill">Fully placed</span>;
+                                        break;
+                                    case 'Z':
+                                        <span class="badge badge-info text-center badge-pill">Partially placed</span>;
                                         break;
 
                                 }
@@ -195,7 +179,7 @@
                                 }
                             </td>
                             <td>@obj.timeCreated</td>
-                            <td>
+                            @*<td>
                                 @if ((DateTime.Compare(obj.TransactTime, Convert.ToDateTime("01/01/0001 00:00:00"))) == 0)
                                 {
                                     <span class="text-muted"><strong>Order still new</strong></span>
@@ -204,7 +188,7 @@
                                 {
                                     @obj.TransactTime
                                 }
-                            </td>
+                            </td>*@
 
                         </tr>
                         }

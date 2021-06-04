@@ -20,8 +20,8 @@ namespace TradeClientTestTemplate.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime timeCreated { get; set; }
 
-        [Required] //Char!!!!
-        public int Side { get; set; }
+        [Required] 
+        public char Side { get; set; }
         
         [Required]
         public string Symbol { get; set; }
@@ -29,21 +29,18 @@ namespace TradeClientTestTemplate.Models
         public int Quantity { get; set; }
 
         [DisplayName("Limit Price")]
-        public string limitPrice { get; set; }
+        public decimal limitPrice { get; set; }
 
 
         [DisplayName("Stop Price")]
-        public string stopPrice { get; set; }
+        public decimal stopPrice { get; set; }
 
         [Required]
         [DisplayName("Order Type")]
         public char OrderType { get; set; }
 
-        [DisplayName("Time In Force")] //char!!!!
-        public string TimeInForce { get; set; }
-
-        [DataType(DataType.Text)]
-        public string Note { get; set; }
+        [DisplayName("Time In Force")] 
+        public char TimeInForce { get; set; }
 
         public char status { get; set; }
 
@@ -57,10 +54,6 @@ namespace TradeClientTestTemplate.Models
         public string trader { get; set; }
 
         public string EquityFullName { get; set; }
-
-        [Display(Name = "Transact Time")]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime  TransactTime { get; set; }
 
         public DateTime dateGTD { get; set; }
 

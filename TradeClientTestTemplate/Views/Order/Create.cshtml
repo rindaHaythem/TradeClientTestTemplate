@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-4  p-1">
                 <div class="form-group ">
-                    <label asp-for="trader">Trader <small class="text-danger"> &nbsp; *Please choose a trader!</small></label>
+                    <label asp-for="trader">Trader <small class="text-danger"> &nbsp; *Please choose a trader desk!</small></label>
                     <select asp-for="trader" class="form-control" required>
 
                         @foreach (var trd in ViewBag.Traders)
@@ -136,13 +136,6 @@
                     <label asp-for="dateGTD">Good till date</label>
                     <input class=" form-control" type="date" asp-for="dateGTD" disabled="disabled" required />
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-6 p-1">
-                <label asp-for="Note">Notes</label>
-                <a class="text-info" title="" data-container="body" data-toggle="popover" data-placement="right" data-content="Ticker symbol" data-original-title="Popover Title"><i class="fas fa-question-circle"></i></a>
-                <textarea class="form-control" asp-for="Note" rows="2"></textarea>
             </div>
         </div>
         <div class="row justify-content-around">

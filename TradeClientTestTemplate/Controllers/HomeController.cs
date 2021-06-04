@@ -29,11 +29,11 @@ namespace TradeClientTestTemplate.Controllers
             return View(objList);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Placement()
         {
-            IEnumerable<Order> objList = _db.Order;
-            ViewBag.Traders = _db.traders;
-            return View(objList);
+            IEnumerable<Placement> placementList = _db.Placement;
+            ViewBag.Destination = _db.destinations;
+            return View(placementList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
